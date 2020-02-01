@@ -1,53 +1,33 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class MovingSphere : MonoBehaviour {
 
-	[SerializeField, Range(0f, 100f)]
-	float maxSpeed = 10f;
-
-	[SerializeField, Range(0f, 100f)]
-	float maxAcceleration = 10f, maxAirAcceleration = 1f;
-
-	[SerializeField, Range(0f, 10f)]
-	float jumpHeight = 2f;
-
-	[SerializeField, Range(0, 5)]
-	int maxAirJumps = 0;
-
-	[SerializeField, Range(0, 90)]
-	float maxGroundAngle = 25f, maxStairsAngle = 50f;
-
-	[SerializeField, Range(0f, 100f)]
-	float maxSnapSpeed = 100f;
-
-	[SerializeField, Min(0f)]
-	float probeDistance = 1f;
-
-	[SerializeField]
-	LayerMask probeMask = -1, stairsMask = -1;
+	[SerializeField, Range(0f, 100f)] float maxSpeed = 10f;
+	[SerializeField, Range(0f, 100f)] float maxAcceleration = 10f, maxAirAcceleration = 1f;
+	[SerializeField, Range(0f, 10f)] float jumpHeight = 2f;
+	[SerializeField, Range(0, 5)] int maxAirJumps = 0;
+	[SerializeField, Range(0, 90)] float maxGroundAngle = 25f, maxStairsAngle = 50f;
+	[SerializeField, Range(0f, 100f)] float maxSnapSpeed = 100f;
+	[SerializeField, Min(0f)] float probeDistance = 1f;
+	[SerializeField] LayerMask probeMask = -1, stairsMask = -1;
 
 	Rigidbody body;
-
 	Vector3 velocity, desiredVelocity;
-
 	bool desiredJump;
-
 	Vector3 contactNormal, steepNormal;
-
 	int groundContactCount, steepContactCount;
-
 	bool OnGround => groundContactCount > 0;
-
 	bool OnSteep => steepContactCount > 0;
-
 	int jumpPhase;
-
 	float minGroundDotProduct, minStairsDotProduct;
-
 	int stepsSinceLastGrounded, stepsSinceLastJump;
-
-    public GameObject PrefabCharacter;
+    
+	public GameObject PrefabCharacter;
     private GameObject PlayerRoot;
+
+	private Vector2 playerInput;
 
 	void OnValidate () {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -61,16 +41,22 @@ public class MovingSphere : MonoBehaviour {
         PlayerRoot = Instantiate(PrefabCharacter);
 	}
 
+	void OnMove(InputValue value) {
+		playerInput = value.Get<Vector2>();
+	}
+	
+	void OnJump() {
+		desiredJump = true;
+	}
+	
+
 	void Update () {
-		Vector2 playerInput;
-		playerInput.x = Input.GetAxis("Horizontal");
-		playerInput.y = Input.GetAxis("Vertical");
 		playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
 		desiredVelocity =
 			new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
 
-		desiredJump |= Input.GetButtonDown("Jump");
+		//desiredJump |= Input.GetButtonDown("Jump");
 
         PlayerRoot.transform.position = transform.position;
 	}
