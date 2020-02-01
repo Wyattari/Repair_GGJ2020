@@ -46,6 +46,9 @@ public class MovingSphere : MonoBehaviour {
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
+    public GameObject PrefabCharacter;
+    private GameObject PlayerRoot;
+
 	void OnValidate () {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
 		minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
@@ -54,6 +57,8 @@ public class MovingSphere : MonoBehaviour {
 	void Awake () {
 		body = GetComponent<Rigidbody>();
 		OnValidate();
+
+        PlayerRoot = Instantiate(PrefabCharacter);
 	}
 
 	void Update () {
@@ -66,6 +71,8 @@ public class MovingSphere : MonoBehaviour {
 			new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
 
 		desiredJump |= Input.GetButtonDown("Jump");
+
+        PlayerRoot.transform.position = transform.position;
 	}
 
 	void FixedUpdate () {

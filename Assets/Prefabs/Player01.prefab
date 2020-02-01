@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322807894808488939}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -139,6 +139,8 @@ MonoBehaviour:
   stairsMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  PrefabCharacter: {fileID: 4353803925009676078, guid: d69d004b9f18b2b47996f6a4d0928a0b,
+    type: 3}
 --- !u!114 &-2037909934545380493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04957ef683c32a47ba23895885f51b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outOfBoundsLayer:
+    serializedVersion: 2
+    m_Bits: 0
