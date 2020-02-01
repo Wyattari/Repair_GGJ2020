@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,38 +23,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-
+    void Start(){
         for (int i = 0; i < playerSpawns.Length; i++) {
             spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
         }
-            
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
     }
 
     public IEnumerator Reset() {
-        //play SFX
-        foreach (GameObject player in spawnedPlayers) {
-            Destroy(player); // add some kind of explosion or smoke poof? death animation
-        }
+        //play SFX? add some kind of explosion or smoke poof? death animation
 
         //rewind camera
         mainCamera.Stop();
-        mainCamera.time = 0;
+        mainCamera.Play();
+
+        //wait for camera to get back to starting position
+        yield return new WaitForSeconds(.5f);
+
+        foreach (GameObject player in spawnedPlayers) {
+            Destroy(player); 
+        }
 
         for (int i = 0; i < playerSpawns.Length; i++) {
             spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
         }
+        
 
-        mainCamera.Play();
-
-        yield return null;
     }
 
 }
