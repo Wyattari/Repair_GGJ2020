@@ -6,6 +6,7 @@ public class RockRotator : MonoBehaviour
 {
     public float RotationSpeed = 10;
     public float HoldInterval = 1;
+    public float HoldSpeed = 1;
 
     float CurrentAngle = 0;
     float LastHold = 0;
@@ -22,8 +23,12 @@ public class RockRotator : MonoBehaviour
 
     void Update()
     {
-        if(Time.time - LastHold > HoldInterval)
-            CurrentAngle += RotationSpeed * Time.deltaTime;
+        float speed = RotationSpeed;
+        if(Time.time - LastHold < HoldInterval)
+        {
+            speed = HoldSpeed;
+        }
+        CurrentAngle += speed * Time.deltaTime;
         transform.rotation = Quaternion.Euler(0, 0, CurrentAngle);
     }
 
