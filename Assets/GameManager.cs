@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject player;
     [SerializeField] Transform[] playerSpawns;
+    [SerializeField] PlayableDirector mainCamera;
 
     GameObject[] spawnedPlayers = new GameObject[4];
 
@@ -41,9 +43,15 @@ public class GameManager : MonoBehaviour
             Destroy(player); // add some kind of explosion or smoke poof? death animation
         }
 
+        //rewind camera
+        mainCamera.Stop();
+        mainCamera.time = 0;
+
         for (int i = 0; i < playerSpawns.Length; i++) {
             spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
         }
+
+        mainCamera.Play();
 
         yield return null;
     }
