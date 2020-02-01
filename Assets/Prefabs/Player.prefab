@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reticle: {fileID: 1937685752}
   screenCanvas: {fileID: 1718282188}
-  sensitivity: 0.2
+  sensitivity: 4
 --- !u!114 &1554318343948541086
 MonoBehaviour:
   m_ObjectHideFlags: 0
