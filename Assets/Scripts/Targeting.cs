@@ -31,6 +31,34 @@ public class Targeting : MonoBehaviour
         Look(m_Look);
     }
 
+    void OnShoot()
+    {
+        var canv = screenCanvas.GetComponent<RectTransform>();
+
+        var screen_pos = reticle.localPosition - new Vector3(canv.rect.min.x, canv.rect.min.y, 0);
+
+        var screen_ray = Camera.main.ScreenPointToRay(screen_pos);
+
+        RaycastHit hit;
+        bool collided = Physics.Raycast(screen_ray.origin, screen_ray.direction, out hit);
+        Debug.Log("Reticle: " + screen_pos);
+        if(collided)
+        {
+            var parent = hit.collider.transform.parent;
+            if(parent && parent.GetComponent<RockRotator>())
+            {
+                var rock_rotator = parent.GetComponent<RockRotator>();
+                rock_rotator.HoldRocks();
+                Debug.Log("Hit");
+            }
+            else
+            {
+                Debug.Log("Miss");
+            }
+        }
+    }
+
+
     private void Look(Vector2 looking) {
         Vector3 newPos = new Vector3(looking.x, looking.y, 0);
         reticle.localPosition += newPos*sensitivity;
