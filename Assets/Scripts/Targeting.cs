@@ -35,9 +35,7 @@ public class Targeting : MonoBehaviour
         Vector3 newPos = new Vector3(looking.x, looking.y, 0);
         reticle.localPosition += newPos*sensitivity;
         reticle.localPosition = KeepFullyOnScreen(reticle.localPosition);
-        var rayOrigin = new Vector3(reticle.localPosition.x/100, reticle.localPosition.y/100, camera.transform.position.z - reticle.localPosition.z);
-        Debug.Log(reticle.localPosition);
-        //startPosition = reticle.position;
+        // need to add https://docs.unity3d.com/ScriptReference/Camera.ViewportPointToRay.html --- but need to normalize the reticle position D:
 
     }
 
