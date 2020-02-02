@@ -2144,6 +2144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5362767492954483797, guid: 7118128e07172da4e82998f3be6dd517,
         type: 3}
+      propertyPath: childOffset.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5362767492954483797, guid: 7118128e07172da4e82998f3be6dd517,
+        type: 3}
       propertyPath: startCurve.m_Curve.Array.data[0].time
       value: 0
       objectReference: {fileID: 0}
