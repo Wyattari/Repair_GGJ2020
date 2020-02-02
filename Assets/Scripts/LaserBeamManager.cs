@@ -16,6 +16,7 @@ public class LaserBeamManager : BaseBehaviour
 
     public void ShootBeams(Vector3 startPosition, Vector3 endPosition)
     {
+        Debug.Log("WE SHOOTING");
         for(int i = 0 ; i < beams.Length; i++)
         {
             beams[i].ShootBeam(startPosition, endPosition);
@@ -27,6 +28,14 @@ public class LaserBeamManager : BaseBehaviour
         for(int i = 0 ; i < beams.Length; i++)
         {
             beams[i].StopBeam();
+        }
+    }
+
+    public void SetStartPositions(Vector3 startPosition)
+    {
+        for(int i = 0 ; i < beams.Length; i++)
+        {
+            beams[i].startPosition = startPosition;
         }
     }
 

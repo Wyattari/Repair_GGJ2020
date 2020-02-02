@@ -5,8 +5,8 @@ using UnityEngine;
 public class Character : BaseBehaviour {
 	int playerId;
 	public GameObject LaserPrefab;
-	GameObject laser;
 	public GameObject BallPrefab;
+	GameObject laser;
 	GameObject ball;
 
 	LaserBeamManager laserBeamManager;
@@ -30,6 +30,12 @@ public class Character : BaseBehaviour {
 		Subscribe();
 	}
 
+	void OnDisable()
+	{
+		ball.SetActive(false);
+		laser.SetActive(false);
+	}
+
 	void Subscribe() {
 		Unsubscribe();
 		events.OnHit += Events_OnHit;
@@ -41,11 +47,14 @@ public class Character : BaseBehaviour {
 
 	void Events_OnHit(int playerId, Vector3 hitPosition) {
 		if (playerId != PlayerId) { return; }
-		laserBeamManager.ShootBeams(laser.transform.position, hitPosition);
+		if(laser != null)
+		{
+			laserBeamManager.ShootBeams(ball.transform.position, hitPosition);
+		}
 	}
 
 	void Update() {
-		laser.transform.position = transform.position;
+		laserBeamManager.SetStartPositions(ball.transform.position);
 		ball.transform.position = transform.position;
 	}
 

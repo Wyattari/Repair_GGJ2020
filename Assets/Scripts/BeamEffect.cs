@@ -34,7 +34,6 @@ public class BeamEffect : MonoBehaviour
     void Start()
     {
         bSpline = new BSpline();
-        ShootBeam(startPosition, endPosition);
     }
 
     public void ShootBeam(Vector3 _StartPosition, Vector3 _EndPosition)
@@ -47,8 +46,11 @@ public class BeamEffect : MonoBehaviour
         Offset2 = new Vector3(UnityEngine.Random.Range(min.x, max.x), UnityEngine.Random.Range(min.y, max.y), UnityEngine.Random.Range(min.z, max.z));
         InitOffset1= Offset1;
         InitOffset2= Offset2;
-
-        StartCoroutine(ShootOverTime());
+        
+        if(isActiveAndEnabled)
+        {
+            StartCoroutine(ShootOverTime());
+        }
     }
 
     public void StopBeam()
@@ -80,7 +82,6 @@ public class BeamEffect : MonoBehaviour
 
     public IEnumerator ShootOverTime()
     {
-        yield return new WaitForSeconds(1);
         float journey = 0;
 
         int startIndex = 0;
