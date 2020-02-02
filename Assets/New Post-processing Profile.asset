@@ -17,11 +17,11 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   colored:
-    overrideState: 0
+    overrideState: 1
     value: 1
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.102
   size:
     overrideState: 0
     value: 1
@@ -79,16 +79,16 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   mode:
-    overrideState: 0
+    overrideState: 1
     value: 0
   color:
-    overrideState: 0
+    overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
   center:
     overrideState: 0
     value: {x: 0.5, y: 0.5}
   intensity:
-    overrideState: 0
+    overrideState: 1
     value: 0
   smoothness:
     overrideState: 0
@@ -1458,8 +1458,8 @@ MonoBehaviour:
     value: {fileID: 0}
     defaultState: 1
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.176
   fastMode:
     overrideState: 0
     value: 0
@@ -1481,7 +1481,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 12.58
+    value: 5
   threshold:
     overrideState: 0
     value: 1
@@ -1522,19 +1522,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
   focusDistance:
-    overrideState: 0
-    value: 10
+    overrideState: 1
+    value: 60.43
   aperture:
-    overrideState: 0
-    value: 5.6
+    overrideState: 1
+    value: 3.5
   focalLength:
-    overrideState: 0
-    value: 50
+    overrideState: 1
+    value: 158
   kernelSize:
     overrideState: 0
     value: 1
