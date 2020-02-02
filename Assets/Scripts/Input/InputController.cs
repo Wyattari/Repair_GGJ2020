@@ -24,9 +24,7 @@ public class InputController : MonoBehaviour {
 			if (!playerMap.ContainsKey(player.id)) {
 				var wantsJoin = player.GetButtonDown("Fire") || player.GetButtonDown("Jump") || player.GetAxis("MoveHorizontal") + player.GetAxis("MoveVertical") + player.GetAxis("AimHorizontal") + player.GetAxis("AimVertical") > 0.2f;
 				if (!wantsJoin) { continue; }
-				Debug.Log($"JOINING MFER {player.id}");
 				playerMap[player.id] = playerMap.Count;
-				GameManager.Instance.PlayerCount++;
 				events.PlayerJoin(playerMap[player.id]);
 			}
 

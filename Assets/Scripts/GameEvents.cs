@@ -11,6 +11,8 @@ public class GameEvents {
 	public Action<int> OnPlayerFire;
 	public Action<int> OnPlayerJump;
 
+	public Action<int> OnPlayerDeath;
+
 	public void Respawn() {
 		OnRespawn?.Invoke();
 	}
@@ -33,5 +35,9 @@ public class GameEvents {
 
 	public void PlayerJump(int id) {
 		OnPlayerJump?.Invoke(id);
-	}	
+	}
+
+	public void PlayerDeath(int id) {
+		OnPlayerDeath?.Invoke(id);
+	}
 }
