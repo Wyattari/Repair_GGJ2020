@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using Cinemachine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform[] playerSpawns;
     [SerializeField] PlayableDirector mainCamera;
 
+    [NonSerialized] public GameEvents Events;
+
     GameObject[] spawnedPlayers = new GameObject[4];
 
     private void Awake() {
@@ -20,6 +23,7 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         } else {
             _instance = this;
+            Events = new GameEvents();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
@@ -29,6 +30,9 @@ public class MovingSphere : MonoBehaviour {
 
 	private Vector2 playerInput;
 
+	static int playerIds;
+	int playerId;
+
 	void OnValidate () {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
 		minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
@@ -39,24 +43,38 @@ public class MovingSphere : MonoBehaviour {
 		OnValidate();
 
         PlayerRoot = Instantiate(PrefabCharacter);
+		Subscribe();
+		playerId = playerIds++;
 	}
 
-	void OnMove(InputValue value) {
-		playerInput = value.Get<Vector2>();
+	void Subscribe() {
+		Unsubscribe();
+		GameManager.Instance.Events.OnPlayerMove += Events_OnPlayerMove;
+		GameManager.Instance.Events.OnPlayerJump += Events_OnPlayerJump;
 	}
-	
-	void OnJump() {
+
+	void Unsubscribe() {
+		GameManager.Instance.Events.OnPlayerMove -= Events_OnPlayerMove;
+		GameManager.Instance.Events.OnPlayerJump -= Events_OnPlayerJump;
+	}
+
+	void Events_OnPlayerMove(int playerId, Vector2 move) {
+		//if (playerId != this.playerId) { return; }
+
+		playerInput = move;
+	}
+
+	void Events_OnPlayerJump(int playerId) {
+		//if (playerId != this.playerId) { return; }
+
 		desiredJump = true;
-	}
-	
+	}	
 
 	void Update () {
 		playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
 		desiredVelocity =
 			new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
-
-		//desiredJump |= Input.GetButtonDown("Jump");
 
         PlayerRoot.transform.position = transform.position;
 	}
