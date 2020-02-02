@@ -633,8 +633,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c007721b573f4ed40a72dac9d085218f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1322807894808488939, guid: b5095b47053bc7249b9e2a4e92427ac1, type: 3}
   mainCamera: {fileID: 859393961}
+  State:
+    Players: []
 --- !u!4 &782036973
 Transform:
   m_ObjectHideFlags: 0
@@ -1092,7 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationSpeed: 50
-  HoldInterval: 5
+  HoldInterval: 999
   HoldSpeed: 1
   childrenRotate:
   - {fileID: 1708180520}
@@ -1935,7 +1936,7 @@ PrefabInstance:
     - target: {fileID: 5362767492954483797, guid: 7118128e07172da4e82998f3be6dd517,
         type: 3}
       propertyPath: HoldInterval
-      value: 5
+      value: 999
       objectReference: {fileID: 0}
     - target: {fileID: 5362767492954483797, guid: 7118128e07172da4e82998f3be6dd517,
         type: 3}

@@ -47,6 +47,7 @@ public class MovingSphere : MonoBehaviour {
 
 	void OnDestroy() {
 		Destroy(PlayerRoot);
+		Unsubscribe();
 	}
 
 	void Subscribe() {

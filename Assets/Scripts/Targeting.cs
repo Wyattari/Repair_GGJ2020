@@ -34,6 +34,10 @@ public class Targeting : MonoBehaviour {
 		Subscribe();
 	}
 
+	void OnDestroy() {
+		Unsubscribe();		
+	}
+
 	void Unsubscribe() {
 		GameManager.Instance.Events.OnPlayerAim -= Events_OnPlayerAim;
 		GameManager.Instance.Events.OnPlayerFire -= Events_OnPlayerFire;

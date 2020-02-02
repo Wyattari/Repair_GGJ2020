@@ -32,7 +32,7 @@ public class SpawnController : MonoBehaviour {
 			spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
 			spawnedPlayers[i].GetComponent<MovingSphere>().PlayerId = i;
 			spawnedPlayers[i].GetComponent<Targeting>().PlayerId = i;
+			GameManager.Instance.State.Players[i].GameObject = spawnedPlayers[i].gameObject;
 		}
 	}
-
 }

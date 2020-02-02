@@ -4,54 +4,81 @@ using UnityEngine;
 using UnityEngine.Playables;
 using Cinemachine;
 using System;
+using State;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 	public static GameManager Instance { get; private set; }
 
 	[SerializeField] PlayableDirector mainCamera;
 
-    [NonSerialized] public GameEvents Events;
-    [NonSerialized] public int PlayerCount = 0;
+	public GameState State = new GameState();
 
-    private void Awake() {
-        if (Instance != null && Instance != this) {
-            Destroy(this.gameObject);
-        } else {
-            Instance = this;
-            Events = new GameEvents();
-        }
-        Subscribe();
-    }
+	[NonSerialized] public GameEvents Events;
+	public int PlayerCount {
+		get { return State.Players.Count; }
+	}
+
+	private void Awake() {
+		if (Instance != null && Instance != this) {
+			Destroy(this.gameObject);
+		} else {
+			Instance = this;
+			Events = new GameEvents();
+		}
+		Subscribe();
+	}
 
 	void Subscribe() {
-        Unsubscribe();
-        Events.OnPlayerJoin += Events_OnPlayerJoin;
+		Unsubscribe();
+		Events.OnPlayerJoin += Events_OnPlayerJoin;
+		Events.OnPlayerDeath += Events_OnPlayerDeath;
+		Events.OnRespawn += Events_OnRespawn;
 	}
 
 	void Unsubscribe() {
-        Events.OnPlayerJoin -= Events_OnPlayerJoin;
-    }
-
-    void Start(){
-        StartCoroutine(Reset());
-    }
-
-	void Events_OnPlayerJoin(int playerId) {
-        Debug.Log($"Resetting {playerId}");
-        StartCoroutine(Reset());
+		Events.OnPlayerJoin -= Events_OnPlayerJoin;
+		Events.OnPlayerDeath -= Events_OnPlayerDeath;
+		Events.OnRespawn -= Events_OnRespawn;
 	}
 
-    public IEnumerator Reset() {
-        //play SFX? add some kind of explosion or smoke poof? death animation
+	void Start() {
+		StartCoroutine(Reset());
+	}
 
-        //rewind camera
-        mainCamera.Stop();
-        mainCamera.Play();
+	void Events_OnPlayerJoin(int playerId) {
+		State.Players.Add(new Player() {
+			Id = playerId,
+			IsAlive = false,
+			GameObject = null
+		});
+		StartCoroutine(Reset());
+	}
 
-        //wait for camera to get back to starting position
-        yield return new WaitForSeconds(.5f);
+	void Events_OnRespawn() {
+		foreach (var player in State.Players) {
+			player.IsAlive = true;
+		}
+	}
 
-        Events.Respawn();
-    }
+	void Events_OnPlayerDeath(int playerId) {
+		State.Players[playerId].IsAlive = false;
+
+		foreach (var player in State.Players) {
+			if (player.IsAlive) { return; }
+		}
+		StartCoroutine(Reset());
+	}
+
+	public IEnumerator Reset() {
+		//play SFX? add some kind of explosion or smoke poof? death animation
+
+		//rewind camera
+		mainCamera.Stop();
+		mainCamera.Play();
+
+		//wait for camera to get back to starting position
+		yield return new WaitForSeconds(.5f);
+
+		Events.Respawn();
+	}
 }
