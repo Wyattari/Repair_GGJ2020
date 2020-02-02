@@ -5966,6 +5966,21 @@ PrefabInstance:
       propertyPath: FogTransparency
       value: 0.0003
       objectReference: {fileID: 0}
+    - target: {fileID: 3196772043365513428, guid: ba3e75023f42fe843acc78d3a0ba9674,
+        type: 3}
+      propertyPath: FogColor.r
+      value: 0.20754719
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196772043365513428, guid: ba3e75023f42fe843acc78d3a0ba9674,
+        type: 3}
+      propertyPath: FogColor.g
+      value: 0.20754719
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196772043365513428, guid: ba3e75023f42fe843acc78d3a0ba9674,
+        type: 3}
+      propertyPath: FogColor.b
+      value: 0.20754719
+      objectReference: {fileID: 0}
     - target: {fileID: 3196772043365513429, guid: ba3e75023f42fe843acc78d3a0ba9674,
         type: 3}
       propertyPath: m_LocalPosition.x
