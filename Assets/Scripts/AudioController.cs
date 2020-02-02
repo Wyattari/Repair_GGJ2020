@@ -13,12 +13,21 @@ public class AudioController : BaseBehaviour {
 	[EventRef] public string Respawn;
 	[EventRef] public string Death;
 
+	[EventRef] public string MenuMusic;
+	[EventRef] public string GameMusic;
+	[EventRef] public string AmbientNoise;
+
 	EventInstance fire;
 	EventInstance hit;
 	EventInstance jump;
 	EventInstance land;
 	EventInstance respawn;
 	EventInstance death;
+
+	EventInstance menuMusic;
+	EventInstance gameMusic;
+	EventInstance ambientNoise;
+
 
 	public static AudioController Instance;
 
@@ -33,6 +42,12 @@ public class AudioController : BaseBehaviour {
 		land = RuntimeManager.CreateInstance(Land);
 		respawn = RuntimeManager.CreateInstance(Respawn);
 		death = RuntimeManager.CreateInstance(Death);
+
+		menuMusic = RuntimeManager.CreateInstance(MenuMusic);
+		gameMusic = RuntimeManager.CreateInstance(GameMusic);
+		ambientNoise = RuntimeManager.CreateInstance(AmbientNoise);
+
+		ambientNoise.start();
 	}
 
 	public void PlayJump() {
