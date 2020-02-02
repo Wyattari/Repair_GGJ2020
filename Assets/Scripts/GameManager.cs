@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
-        Respawn();
         Subscribe();
+        StartCoroutine(Reset());
     }
 
 	void Subscribe() {
