@@ -315,8 +315,6 @@ MonoBehaviour:
   stairsMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  PrefabCharacter: {fileID: 4353803925009676078, guid: d69d004b9f18b2b47996f6a4d0928a0b,
-    type: 3}
   PlayerId: 0
 --- !u!114 &-2037909934545380493
 MonoBehaviour:
@@ -376,4 +374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LaserPrefab: {fileID: 4515389548460818411, guid: 396f6e569a0e64d158eabfed3a1d7c17,
+    type: 3}
+  BallPrefab: {fileID: 4353803925009676078, guid: d69d004b9f18b2b47996f6a4d0928a0b,
     type: 3}

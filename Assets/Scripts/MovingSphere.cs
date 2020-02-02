@@ -25,9 +25,6 @@ public class MovingSphere : MonoBehaviour {
 	float minGroundDotProduct, minStairsDotProduct;
 	int stepsSinceLastGrounded, stepsSinceLastJump;
     
-	public GameObject PrefabCharacter;
-    private GameObject PlayerRoot;
-
 	private Vector2 playerInput;
 
 	public int PlayerId;
@@ -41,12 +38,10 @@ public class MovingSphere : MonoBehaviour {
 		body = GetComponent<Rigidbody>();
 		OnValidate();
 
-        PlayerRoot = Instantiate(PrefabCharacter);
 		Subscribe();
 	}
 
 	void OnDestroy() {
-		Destroy(PlayerRoot);
 		Unsubscribe();
 	}
 
@@ -78,8 +73,6 @@ public class MovingSphere : MonoBehaviour {
 
 		desiredVelocity =
 			new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
-
-        PlayerRoot.transform.position = transform.position;
 	}
 
 	void FixedUpdate () {

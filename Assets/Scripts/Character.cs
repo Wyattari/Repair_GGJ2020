@@ -6,6 +6,9 @@ public class Character : BaseBehaviour {
 	int playerId;
 	public GameObject LaserPrefab;
 	GameObject laser;
+	public GameObject BallPrefab;
+	GameObject ball;
+
 	LaserBeamManager laserBeamManager;
 	PlayerColor playerColor;
 
@@ -20,9 +23,10 @@ public class Character : BaseBehaviour {
 	}
 
 	void Awake() {
+		ball = Instantiate(BallPrefab);
 		laser = Instantiate(LaserPrefab);
 		laserBeamManager = laser.GetComponent<LaserBeamManager>();
-		playerColor = GetComponent<PlayerColor>();
+		playerColor = ball.GetComponentInChildren<PlayerColor>();
 		Subscribe();
 	}
 
@@ -42,10 +46,12 @@ public class Character : BaseBehaviour {
 
 	void Update() {
 		laser.transform.position = transform.position;
+		ball.transform.position = transform.position;
 	}
 
 	void OnDestroy() {
 		Unsubscribe();
 		Destroy(laser);
+		Destroy(ball);
 	}
 }
