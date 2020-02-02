@@ -48,7 +48,7 @@ public class MovingSphere : MonoBehaviour {
 		body = GetComponent<Rigidbody>();
 		OnValidate();
 
-        PlayerRoot = Instantiate(PrefabCharacter);
+        PlayerRoot = Instantiate(PrefabCharacter, transform);
 		Subscribe();
 	}
 
