@@ -1136,7 +1136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &617192895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1527,7 +1527,7 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: -2.0497642, y: 0, z: -7.019095}
     roll: 0
-  - position: {x: -13.892572, y: 0, z: 42.465115}
+  - position: {x: -15.162699, y: 0, z: 41.228985}
     roll: 0
   - position: {x: -47.15192, y: 0, z: 75.182335}
     roll: 0
@@ -1580,6 +1580,7 @@ MonoBehaviour:
   childrenRotate:
   - {fileID: 1169278259}
   - {fileID: 2062130296}
+  childrenRotateOnly: []
   enableChildRotation: 1
   childOffset:
   - {x: 15, y: 0, z: 0}
@@ -2057,6 +2058,7 @@ MonoBehaviour:
   childrenRotate:
   - {fileID: 1708180520}
   - {fileID: 1868625152}
+  childrenRotateOnly: []
   enableChildRotation: 1
   childOffset:
   - {x: 15, y: 0, z: 0}
@@ -2119,6 +2121,7 @@ MonoBehaviour:
   HoldSpeed: 1
   childrenRotate:
   - {fileID: 244333091}
+  childrenRotateOnly: []
   enableChildRotation: 1
   childOffset:
   - {x: -4, y: 0, z: 0}
@@ -2240,7 +2243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1375024076
 Animator:
   serializedVersion: 3
@@ -2618,6 +2621,7 @@ MonoBehaviour:
   childrenRotate:
   - {fileID: 1853474340}
   - {fileID: 792967186}
+  childrenRotateOnly: []
   enableChildRotation: 1
   childOffset:
   - {x: 15, y: 0, z: 0}
