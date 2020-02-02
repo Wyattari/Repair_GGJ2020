@@ -11,19 +11,12 @@ public class Targeting : MonoBehaviour {
 	[SerializeField] float sensitivity = 0.2f;
 	Camera mainCam;
 
-	Color[] playerColors = new Color[] {
-		Color.magenta,
-		Color.cyan,
-		Color.yellow,
-		Color.green
-	};
-
 	int playerId;
 	public int PlayerId {
 		get { return playerId; }
 		set {
 			playerId = value;
-			reticle.GetComponent<Image>().color = playerColors[value];
+			reticle.GetComponent<Image>().color = GameManager.Instance.State.Players[value].Color;
 		}
 	}
 
