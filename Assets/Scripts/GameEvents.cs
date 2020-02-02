@@ -9,6 +9,7 @@ public class GameEvents {
 	public Action<int, Vector2> OnPlayerMove;
 	public Action<int, Vector2> OnPlayerAim;
 	public Action<int> OnPlayerFire;
+	public Action<int> OnPlayerFireRelease;
 	public Action<int> OnPlayerJump;
 
 	// player events
@@ -34,6 +35,10 @@ public class GameEvents {
 
 	public void PlayerFire(int id) {
 		OnPlayerFire?.Invoke(id);
+	}
+
+	public void PlayerFireRelease(int id) {
+		OnPlayerFireRelease?.Invoke(id);
 	}
 
 	public void PlayerJump(int id) {

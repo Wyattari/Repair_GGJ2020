@@ -65,7 +65,6 @@ public class Targeting : BaseBehaviour {
 
 		RaycastHit hit;
 		bool collided = Physics.Raycast(screen_ray.origin, screen_ray.direction, out hit);
-		Debug.Log("Reticle: " + screen_pos);
 
 		if (collided) {
 			var parent = hit.collider.transform.parent;
