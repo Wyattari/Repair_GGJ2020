@@ -21,7 +21,7 @@ public class RockRotator : MonoBehaviour
     void Start()
     {
         childrenOrigins = new Vector3[childrenRotate.Length];
-        LastHold = Time.time;
+        LastHold = Time.time - HoldInterval;
 
         for (int i = 0; i < childrenRotate.Length; i++) {
             childrenOrigins[i] = childrenRotate[i].transform.localPosition;
