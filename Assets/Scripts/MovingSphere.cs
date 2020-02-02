@@ -68,7 +68,7 @@ public class MovingSphere : MonoBehaviour {
 		if (playerId != this.playerId) { return; }
 
 		desiredJump = true;
-	}	
+	}
 
 	void Update () {
 		playerInput = Vector2.ClampMagnitude(playerInput, 1f);
