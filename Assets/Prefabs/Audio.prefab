@@ -49,3 +49,6 @@ MonoBehaviour:
   Land: event:/Character/Land
   Respawn: event:/Character/Respawn
   Death: event:/Character/Death
+  MenuMusic: event:/Musica/Menu music
+  GameMusic: event:/Musica/Main music
+  AmbientNoise: event:/World/Ambience
