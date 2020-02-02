@@ -7,20 +7,18 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-    public static GameManager Instance { get { return _instance; } }
+	public static GameManager Instance { get; private set; }
 
-    [SerializeField] GameObject player;
-    [SerializeField] PlayableDirector mainCamera;
+	[SerializeField] PlayableDirector mainCamera;
 
     [NonSerialized] public GameEvents Events;
     [NonSerialized] public int PlayerCount = 0;
 
     private void Awake() {
-        if (_instance != null && _instance != this) {
+        if (Instance != null && Instance != this) {
             Destroy(this.gameObject);
         } else {
-            _instance = this;
+            Instance = this;
             Events = new GameEvents();
         }
         Subscribe();

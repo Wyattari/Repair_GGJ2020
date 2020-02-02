@@ -9,7 +9,6 @@ public class Targeting : MonoBehaviour {
 	[SerializeField] RectTransform screenCanvas;
 	Vector2 startPosition;
 	[SerializeField] float sensitivity = 0.2f;
-	GameObject camera;
 	Camera mainCam;
 
 	Color[] playerColors = new Color[] {
@@ -31,7 +30,6 @@ public class Targeting : MonoBehaviour {
 	private Vector2 look;
 
 	private void Start() {
-		camera = GameObject.Find("cm");
 		mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
 		Subscribe();
 	}
