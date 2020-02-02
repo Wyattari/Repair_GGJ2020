@@ -17,6 +17,8 @@ public class BeamEffect : MonoBehaviour
 
     public Vector3 jitterMin;
     public Vector3 jitterMax;
+    public float beamSpinSpeed = 0.5f;
+
 
     Vector3 InitOffset1;
     Vector3 InitOffset2;
@@ -24,6 +26,7 @@ public class BeamEffect : MonoBehaviour
     Vector3 Offset2;
     float OffsetAngle1;
     float OffsetAngle2;
+    bool isShooting = false;
 
     Vector3[] points;
     List<Vector3> bPoints;
@@ -45,11 +48,12 @@ public class BeamEffect : MonoBehaviour
         InitOffset1= Offset1;
         InitOffset2= Offset2;
 
-
-        // lineRenderer.positionCount = bPoints.Length;
-        // lineRenderer.SetPositions(bPoints);
-
         StartCoroutine(ShootOverTime());
+    }
+
+    public void StopBeam()
+    {
+        isShooting = false;
     }
 
     void getPoints()
@@ -63,8 +67,8 @@ public class BeamEffect : MonoBehaviour
 
     void changeOffsets()
     {
-        OffsetAngle1+=0.5f;
-        OffsetAngle2+=0.5f;
+        OffsetAngle1+=beamSpinSpeed;
+        OffsetAngle2+=beamSpinSpeed;
         Offset1 = RotateAroundPoint(InitOffset1, Vector3.Lerp(startPosition, endPosition, 0.33f), Quaternion.Euler(0, 0, OffsetAngle1))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
         Offset2 = RotateAroundPoint(InitOffset2, Vector3.Lerp(startPosition, endPosition, 0.67f), Quaternion.Euler(0, 0, OffsetAngle2))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
     }
@@ -92,7 +96,7 @@ public class BeamEffect : MonoBehaviour
             journey += Time.deltaTime;
             float startJourney = animationCurve.Evaluate(journey / duration);
 
-            if (waitTimeEndBeam < journey)
+            if (isShooting)
             {
                 endBeamTime += Time.deltaTime;
                 endJourney = animationCurve.Evaluate(endBeamTime / duration);
