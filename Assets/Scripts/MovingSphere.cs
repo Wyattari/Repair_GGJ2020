@@ -13,8 +13,9 @@ public class MovingSphere : MonoBehaviour {
 	[SerializeField, Range(0f, 100f)] float maxSnapSpeed = 100f;
 	[SerializeField, Min(0f)] float probeDistance = 1f;
 	[SerializeField] LayerMask probeMask = -1, stairsMask = -1;
+    [SerializeField] AnimationCurve fallVelocity;
 
-	Rigidbody body;
+    Rigidbody body;
 	Vector3 velocity, desiredVelocity;
 	bool desiredJump;
 	Vector3 contactNormal, steepNormal;
@@ -38,6 +39,7 @@ public class MovingSphere : MonoBehaviour {
 			PlayerRoot.GetComponentInChildren<PlayerColor>().color = GameManager.Instance.State.Players[value].Color;
 		}
 	}
+    float fallTime;
 
 	void OnValidate () {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -120,6 +122,13 @@ public class MovingSphere : MonoBehaviour {
 				contactNormal.Normalize();
 			}
 		}
+
+        if (!OnGround && stepsSinceLastJump <= 60) {
+             if (body.velocity.y <= 0) {
+                fallTime += Time.fixedDeltaTime;
+                velocity += new Vector3(0, -Mathf.Lerp(0, 4, fallVelocity.Evaluate(fallTime)), 0);
+            }
+        }
 		else {
 			contactNormal = Vector3.up;
 		}
@@ -201,7 +210,7 @@ public class MovingSphere : MonoBehaviour {
 		else {
 			return;
 		}
-
+        fallTime = 0;
 		stepsSinceLastJump = 0;
 		jumpPhase += 1;
 		float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
