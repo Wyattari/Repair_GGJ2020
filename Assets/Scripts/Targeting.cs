@@ -18,14 +18,12 @@ public class Targeting : MonoBehaviour
     private void Start() {
         camera = GameObject.Find("cm");
         mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
-
     }
 
     void OnLook(InputValue value) {
         m_Look = value.Get<Vector2>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Look(m_Look);
