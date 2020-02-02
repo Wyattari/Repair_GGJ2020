@@ -66,6 +66,7 @@ public class Targeting : MonoBehaviour {
 		RaycastHit hit;
 		bool collided = Physics.Raycast(screen_ray.origin, screen_ray.direction, out hit);
 		Debug.Log("Reticle: " + screen_pos);
+
 		if (collided) {
 			var parent = hit.collider.transform.parent;
             while(parent)
@@ -73,10 +74,16 @@ public class Targeting : MonoBehaviour {
 			    if (parent.GetComponent<RockRotator>()) {
 				    var rock_rotator = parent.GetComponent<RockRotator>();
 				    rock_rotator.HoldRocks();
+					StartCoroutine(PlayHitSound());
 			    }
                 parent = parent.transform.parent;
             }
 		}
+	}
+
+	IEnumerator PlayHitSound() {
+		yield return new WaitForSeconds(0.2f);
+		AudioController.Instance?.PlayHit();
 	}
 
 	void Update() {

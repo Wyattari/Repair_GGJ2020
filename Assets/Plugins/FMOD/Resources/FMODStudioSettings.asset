@@ -15,8 +15,8 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: Fmod/Master/Master.fspro
-  sourceBankPath: Fmod/Master/Build
+  sourceProjectPath: Audio/Axon/Axon.fspro
+  sourceBankPath: Audio/Axon/Build
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
   BankLoadType: 0

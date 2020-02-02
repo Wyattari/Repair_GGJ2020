@@ -176,6 +176,7 @@ public class MovingSphere : MonoBehaviour {
 		velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
 	}
 
+	bool isJumping = false;
 	void Jump () {
 		Vector3 jumpDirection;
 		if (OnGround) {
@@ -195,6 +196,12 @@ public class MovingSphere : MonoBehaviour {
 			return;
 		}
 
+		isJumping = true;
+		try {
+			AudioController.Instance.PlayJump();
+		} catch (NullReferenceException) {
+			Debug.LogWarning("Couldn't play jump sound. Is AudioController in the scene?");
+		}
 		stepsSinceLastJump = 0;
 		jumpPhase += 1;
 		float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
@@ -207,6 +214,10 @@ public class MovingSphere : MonoBehaviour {
 	}
 
 	void OnCollisionEnter (Collision collision) {
+		if (isJumping) {
+			isJumping = false;
+			AudioController.Instance.PlayLand();
+		}
 		EvaluateCollision(collision);
 	}
 
