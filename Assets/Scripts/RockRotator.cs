@@ -16,13 +16,15 @@ public class RockRotator : MonoBehaviour
     public Vector3[] childOffset;
     [SerializeField] AnimationCurve startCurve;
     Vector3[] childrenOrigins;
+    bool beginning;
+    float introTime = 0;
 
 
     void Start()
     {
-        childrenOrigins = new Vector3[childrenRotate.Length];
-        LastHold = Time.time;
 
+        childrenOrigins = new Vector3[childrenRotate.Length];
+        LastHold = Time.time - HoldInterval;
         for (int i = 0; i < childrenRotate.Length; i++) {
             childrenOrigins[i] = childrenRotate[i].transform.localPosition;
         }
@@ -44,6 +46,10 @@ public class RockRotator : MonoBehaviour
         {
             speed = HoldSpeed;
         }
+        if (beginning) {
+            introTime += Time.deltaTime;
+            speed = Mathf.Lerp(HoldSpeed, RotationSpeed, startCurve.Evaluate(introTime));
+        }
         CurrentAngle += speed * Time.deltaTime;
         if (enableChildRotation) {
             foreach(GameObject child in childrenRotate) {
@@ -58,12 +64,14 @@ public class RockRotator : MonoBehaviour
 
         Debug.Log(startCurve.keys[1].time);
         while (t <= startCurve.keys[1].time) {
+            beginning = true;
             t += Time.deltaTime;
             for (int i = 0; i < childrenRotate.Length; i++) {
                 childrenRotate[i].transform.localPosition = Vector3.Lerp(childrenOrigins[i], childrenOrigins[i] + childOffset[i], startCurve.Evaluate(t));
             }
             yield return new WaitForEndOfFrame();
         }
+        beginning = false;
     }
 
 
