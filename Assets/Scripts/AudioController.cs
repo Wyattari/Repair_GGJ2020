@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
+using FMODUnity;
 
 public class AudioController : MonoBehaviour {
 
-	[FMODUnity.EventRef] public string Fire;
-	[FMODUnity.EventRef] public string Hit;
-	[FMODUnity.EventRef] public string Jump;
-	[FMODUnity.EventRef] public string Land;
+	[EventRef] public string Fire;
+	[EventRef] public string Hit;
+	[EventRef] public string Jump;
+	[EventRef] public string Land;
 
-	FMOD.Studio.EventInstance fire;
-	FMOD.Studio.EventInstance hit;
-	FMOD.Studio.EventInstance jump;
-	FMOD.Studio.EventInstance land;
+	EventInstance fire;
+	EventInstance hit;
+	EventInstance jump;
+	EventInstance land;
 
 	public static AudioController Instance;
 
@@ -21,28 +23,36 @@ public class AudioController : MonoBehaviour {
 		if (Instance != null) { throw new System.Exception("Tried to create two AudioControllers"); }
 		Instance = this;
 		Subscribe();
-		fire = FMODUnity.RuntimeManager.CreateInstance(Fire);
-		hit = FMODUnity.RuntimeManager.CreateInstance(Hit);
-		jump = FMODUnity.RuntimeManager.CreateInstance(Jump);
-		land = FMODUnity.RuntimeManager.CreateInstance(Land);
+		fire = RuntimeManager.CreateInstance(Fire);
+		hit = RuntimeManager.CreateInstance(Hit);
+		jump = RuntimeManager.CreateInstance(Jump);
+		land = RuntimeManager.CreateInstance(Land);
+	}
+
+	public void PlayJump() {
+		jump.start();
+	}
+
+	public void PlayLand() {
+		land.start();
+	}
+
+	public void PlayHit() {
+		fire.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+		hit.start();
 	}
 
 	void Subscribe() {
 		Unsubscribe();
-		GameManager.Instance.Events.OnPlayerJump += Events_OnPlayerJump;
 		GameManager.Instance.Events.OnPlayerFire += Events_OnPlayerFire;
 	}
 
 	void Unsubscribe() {
-		GameManager.Instance.Events.OnPlayerJump -= Events_OnPlayerJump;
 		GameManager.Instance.Events.OnPlayerFire -= Events_OnPlayerFire;
 	}
 
-	void Events_OnPlayerJump(int playerId) {
-		jump.start();
-	}
-
 	void Events_OnPlayerFire(int playerId) {
+		Debug.Log("PLAYING FIRE SOUND KAMAN");
 		fire.start();
 	}
 }
