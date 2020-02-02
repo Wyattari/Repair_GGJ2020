@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{f052b059-34f9-46a2-abfb-d384be0fa155}">
+		<property name="assetPath">
+			<value>Final_Gun_Hit_Mono.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1926f52f-5f19-450f-92be-cb361d693137}</destination>
+		</relationship>
+	</object>
+</objects>
