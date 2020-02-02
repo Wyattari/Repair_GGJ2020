@@ -11,6 +11,7 @@ namespace State {
 	[Serializable]
 	public class Player {
 		public int Id;
+		public Color Color;
 		public bool IsAlive;
 		public GameObject GameObject;
 	}

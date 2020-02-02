@@ -11,19 +11,12 @@ public class Targeting : MonoBehaviour {
 	[SerializeField] float sensitivity = 0.2f;
 	Camera mainCam;
 
-	Color[] playerColors = new Color[] {
-		Color.magenta,
-		Color.cyan,
-		Color.yellow,
-		Color.green
-	};
-
 	int playerId;
 	public int PlayerId {
 		get { return playerId; }
 		set {
 			playerId = value;
-			reticle.GetComponent<Image>().color = playerColors[value];
+			reticle.GetComponent<Image>().color = GameManager.Instance.State.Players[value].Color;
 		}
 	}
 
@@ -68,13 +61,17 @@ public class Targeting : MonoBehaviour {
 		Debug.Log("Reticle: " + screen_pos);
 		if (collided) {
 			var parent = hit.collider.transform.parent;
-            while(parent)
+			int depth = 10;
+            while(parent && depth-- > 0)
             {
 			    if (parent.GetComponent<RockRotator>()) {
 				    var rock_rotator = parent.GetComponent<RockRotator>();
 				    rock_rotator.HoldRocks();
-			    }
-                parent = hit.collider.transform.parent;
+					var laser = gameObject.GetComponentInChildren<LaserBeamManager>();
+					Debug.Log($"Hit {rock_rotator.name}");
+					//laser.ShootBeams(hit.point);
+				}
+                parent = parent.transform.parent;
             }
 		}
 	}
