@@ -34,7 +34,6 @@ ExportedObj/
 *.sln
 *.suo
 *.tmp
-*.user
 *.userprefs
 *.pidb
 *.booproj
@@ -43,6 +42,10 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+
+# fmod
+#.user/
+.unsaved/
 
 # Unity3D generated meta files
 *.pidb.meta
