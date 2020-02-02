@@ -31,9 +31,15 @@ public class MovingSphere : MonoBehaviour {
 
 	private Vector2 playerInput;
 
-	public int PlayerId;
+	int playerId;
+	public int PlayerId {
+		get { return playerId; }
+		set {
+			playerId = value;
+			PlayerRoot.GetComponentInChildren<PlayerColor>().color = GameManager.Instance.State.Players[value].Color;
+		}
+	}
     float fallTime;
-
 
 	void OnValidate () {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -44,7 +50,7 @@ public class MovingSphere : MonoBehaviour {
 		body = GetComponent<Rigidbody>();
 		OnValidate();
 
-        PlayerRoot = Instantiate(PrefabCharacter);
+        PlayerRoot = Instantiate(PrefabCharacter, transform);
 		Subscribe();
 	}
 

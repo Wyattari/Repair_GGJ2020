@@ -5,6 +5,7 @@ using UnityEngine;
 public class BeamEffect : MonoBehaviour
 {
     public Vector3 endPosition;
+    public Transform startPosition;
     BSpline bSpline;
     public LineRenderer lineRenderer;
     public float duration;
@@ -56,7 +57,7 @@ public class BeamEffect : MonoBehaviour
     void getPoints()
     {
 
-        Vector3[] inputPoints = new Vector3[] { transform.position, Vector3.Lerp(transform.position, endPosition, 0.33f) - Offset1, Vector3.Lerp(transform.position, endPosition, 0.67f) - Offset2, endPosition };
+        Vector3[] inputPoints = new Vector3[] { startPosition.position, Vector3.Lerp(startPosition.position, endPosition, 0.33f) - Offset1, Vector3.Lerp(startPosition.position, endPosition, 0.67f) - Offset2, endPosition };
 
         bPoints = new List<Vector3>();
         bPoints.AddRange(bSpline.GetPoints(inputPoints));
@@ -66,8 +67,8 @@ public class BeamEffect : MonoBehaviour
     {
         OffsetAngle1+=beamSpinSpeed;
         OffsetAngle2+=beamSpinSpeed;
-        Offset1 = RotateAroundPoint(InitOffset1, Vector3.Lerp(transform.position, endPosition, 0.33f), Quaternion.Euler(0, 0, OffsetAngle1))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
-        Offset2 = RotateAroundPoint(InitOffset2, Vector3.Lerp(transform.position, endPosition, 0.67f), Quaternion.Euler(0, 0, OffsetAngle2))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
+        Offset1 = RotateAroundPoint(InitOffset1, Vector3.Lerp(startPosition.position, endPosition, 0.33f), Quaternion.Euler(0, 0, OffsetAngle1))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
+        Offset2 = RotateAroundPoint(InitOffset2, Vector3.Lerp(startPosition.position, endPosition, 0.67f), Quaternion.Euler(0, 0, OffsetAngle2))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
     }
 
     Vector3 RotateAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle)

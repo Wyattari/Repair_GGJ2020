@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] PlayableDirector mainCamera;
 
 	public GameState State = new GameState();
+	Color[] playerColors = new Color[] {
+		Color.magenta,
+		Color.cyan,
+		Color.yellow,
+		Color.green
+	};
 
 	[NonSerialized] public GameEvents Events;
 	public int PlayerCount {
@@ -49,6 +55,7 @@ public class GameManager : MonoBehaviour {
 		State.Players.Add(new Player() {
 			Id = playerId,
 			IsAlive = false,
+			Color = playerColors[playerId],
 			GameObject = null
 		});
 		StartCoroutine(Reset());

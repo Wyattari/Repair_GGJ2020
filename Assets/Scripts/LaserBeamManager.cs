@@ -5,6 +5,20 @@ using UnityEngine;
 public class LaserBeamManager : MonoBehaviour
 {
     public BeamEffect[] beams;
+    public Transform PlayerStartPosition;
+
+    void Start()
+    {
+        SetStartPosition();
+    }
+
+    public void SetStartPosition()
+    {
+        for(int i = 0 ; i < beams.Length; i++)
+        {
+            beams[i].startPosition = PlayerStartPosition;
+        }
+    }
 
     public void ShootBeams(Vector3 endPosition)
     {
