@@ -4,17 +4,21 @@ using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
 
-public class AudioController : MonoBehaviour {
+public class AudioController : BaseBehaviour {
 
 	[EventRef] public string Fire;
 	[EventRef] public string Hit;
 	[EventRef] public string Jump;
 	[EventRef] public string Land;
+	[EventRef] public string Respawn;
+	[EventRef] public string Death;
 
 	EventInstance fire;
 	EventInstance hit;
 	EventInstance jump;
 	EventInstance land;
+	EventInstance respawn;
+	EventInstance death;
 
 	public static AudioController Instance;
 
@@ -27,6 +31,8 @@ public class AudioController : MonoBehaviour {
 		hit = RuntimeManager.CreateInstance(Hit);
 		jump = RuntimeManager.CreateInstance(Jump);
 		land = RuntimeManager.CreateInstance(Land);
+		respawn = RuntimeManager.CreateInstance(Respawn);
+		death = RuntimeManager.CreateInstance(Death);
 	}
 
 	public void PlayJump() {
@@ -44,14 +50,26 @@ public class AudioController : MonoBehaviour {
 
 	void Subscribe() {
 		Unsubscribe();
-		GameManager.Instance.Events.OnPlayerFire += Events_OnPlayerFire;
+		events.OnPlayerFire += Events_OnPlayerFire;
+		events.OnPlayerDeath += Events_OnPlayerDeath;
+		events.OnRespawn += Events_OnRespawn;
 	}
 
 	void Unsubscribe() {
-		GameManager.Instance.Events.OnPlayerFire -= Events_OnPlayerFire;
+		events.OnPlayerFire -= Events_OnPlayerFire;
+		events.OnPlayerDeath -= Events_OnPlayerDeath;
+		events.OnRespawn -= Events_OnRespawn;
 	}
 
 	void Events_OnPlayerFire(int playerId) {
 		fire.start();
+	}
+
+	void Events_OnPlayerDeath(int playerId) {
+		death.start();
+	}
+
+	void Events_OnRespawn() {
+		respawn.start();
 	}
 }

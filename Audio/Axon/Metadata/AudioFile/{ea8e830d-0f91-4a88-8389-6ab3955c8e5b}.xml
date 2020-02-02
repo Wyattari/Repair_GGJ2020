@@ -1,20 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.00.00">
-	<object class="AudioFile" id="{ea8e830d-0f91-4a88-8389-6ab3955c8e5b}">
-		<property name="assetPath">
-			<value>Average_Boi_Jump_Mono.wav</value>
-		</property>
-		<property name="frequencyInKHz">
-			<value>48</value>
-		</property>
-		<property name="channelCount">
-			<value>1</value>
-		</property>
-		<property name="length">
-			<value>0.5</value>
-		</property>
-		<relationship name="masterAssetFolder">
-			<destination>{d45ddff9-5296-4586-aeb1-dfe50547825f}</destination>
-		</relationship>
-	</object>
-</objects>
+version https://git-lfs.github.com/spec/v1
+oid sha256:35ebf33e8dd4c7d6cb38a0532a8d0bb3a0c32a1226f16dbee6be93c0ccb8580c
+size 597

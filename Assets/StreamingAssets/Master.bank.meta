@@ -1,9 +1,3 @@
-fileFormatVersion: 2
-guid: ac187341afe6b4f82a4f543bb0a82bbd
-labels:
-- FMOD
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:31169d12751dbdd0671a07d06a34aec16a2603c31dc70507b34d7d2ee167ab5b
+size 170
