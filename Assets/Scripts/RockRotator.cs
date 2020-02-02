@@ -13,7 +13,7 @@ public class RockRotator : MonoBehaviour
 
     [SerializeField] GameObject[] childrenRotate;
     public bool enableChildRotation = true;
-    public Vector3 childOffset;
+    public Vector3[] childOffset;
     [SerializeField] AnimationCurve startCurve;
     Vector3[] childrenOrigins;
 
@@ -60,9 +60,9 @@ public class RockRotator : MonoBehaviour
         while (t <= startCurve.keys[1].time) {
             t += Time.deltaTime;
             for (int i = 0; i < childrenRotate.Length; i++) {
-                childrenRotate[i].transform.position = Vector3.Lerp(childrenOrigins[i], childrenOrigins[i] + childOffset, startCurve.Evaluate(t));
+                childrenRotate[i].transform.position = Vector3.Lerp(childrenOrigins[i], childrenOrigins[i] + childOffset[i], startCurve.Evaluate(t));
             }
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(.1f);
         }
     }
 
