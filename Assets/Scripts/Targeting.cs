@@ -69,7 +69,7 @@ public class Targeting : MonoBehaviour {
 				    rock_rotator.HoldRocks();
 					var laser = gameObject.GetComponentInChildren<LaserBeamManager>();
 					Debug.Log($"Hit {rock_rotator.name}");
-					laser.ShootBeams(hit.point);
+					//laser.ShootBeams(hit.point);
 				}
                 parent = parent.transform.parent;
             }
