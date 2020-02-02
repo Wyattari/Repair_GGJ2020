@@ -43,7 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c5e8ed5e5c74afa9dbfd8f0b444e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fire: event:/Fire
-  Hit: event:/Hit
-  Jump: event:/Jump
-  Land: event:/Land
+  Fire: event:/Character/Fire
+  Hit: event:/Character/Hit
+  Jump: event:/Character/Jump
+  Land: event:/Character/Land
+  Respawn: event:/Character/Respawn
+  Death: event:/Character/Death
