@@ -61,13 +61,17 @@ public class Targeting : MonoBehaviour {
 		Debug.Log("Reticle: " + screen_pos);
 		if (collided) {
 			var parent = hit.collider.transform.parent;
-            while(parent)
+			int depth = 10;
+            while(parent && depth-- > 0)
             {
 			    if (parent.GetComponent<RockRotator>()) {
 				    var rock_rotator = parent.GetComponent<RockRotator>();
 				    rock_rotator.HoldRocks();
-			    }
-                parent = hit.collider.transform.parent;
+					var laser = gameObject.GetComponentInChildren<LaserBeamManager>();
+					Debug.Log($"Hit {rock_rotator.name}");
+					laser.ShootBeams(hit.point);
+				}
+                parent = parent.transform.parent;
             }
 		}
 	}
