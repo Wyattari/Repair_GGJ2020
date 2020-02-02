@@ -46,6 +46,9 @@ public class InputController : MonoBehaviour {
 			if (player.GetButtonDown("Fire")) {
 				events.PlayerFire(id);
 			}
+			if (player.GetButtonUp("Fire")) {
+				events.PlayerFireRelease(id);
+			}
 			// left shoulder event
 			if (player.GetButtonDown("Jump")) {
 				events.PlayerJump(id);

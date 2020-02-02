@@ -32,6 +32,7 @@ public class Character : BaseBehaviour {
 
 	void OnDisable()
 	{
+		Unsubscribe();
 		ball.SetActive(false);
 		laser.SetActive(false);
 	}
@@ -39,10 +40,12 @@ public class Character : BaseBehaviour {
 	void Subscribe() {
 		Unsubscribe();
 		events.OnHit += Events_OnHit;
+		events.OnPlayerFireRelease += Events_OnPlayerFireRelease;
 	}
 
 	void Unsubscribe() {
 		events.OnHit -= Events_OnHit;
+		events.OnPlayerFireRelease -= Events_OnPlayerFireRelease;
 	}
 
 	void Events_OnHit(int playerId, Vector3 hitPosition) {
@@ -51,6 +54,18 @@ public class Character : BaseBehaviour {
 		{
 			laserBeamManager.ShootBeams(ball.transform.position, hitPosition);
 		}
+	}
+
+	void Events_OnPlayerFireRelease(int playerId) {
+		if (playerId != PlayerId) { return; }
+		if (laser == null) { return; }
+		Debug.Log("Stopping Beams");
+		StartCoroutine(StopBeams());
+	}
+
+	IEnumerator StopBeams() {
+		yield return new WaitForSeconds(0.25f);
+		laserBeamManager.StopBeams();
 	}
 
 	void Update() {
