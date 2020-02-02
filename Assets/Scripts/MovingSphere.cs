@@ -59,13 +59,13 @@ public class MovingSphere : MonoBehaviour {
 	}
 
 	void Events_OnPlayerMove(int playerId, Vector2 move) {
-		//if (playerId != this.playerId) { return; }
+		if (playerId != this.playerId) { return; }
 
 		playerInput = move;
 	}
 
 	void Events_OnPlayerJump(int playerId) {
-		//if (playerId != this.playerId) { return; }
+		if (playerId != this.playerId) { return; }
 
 		desiredJump = true;
 	}	
