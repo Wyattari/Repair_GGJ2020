@@ -14,8 +14,8 @@ public class Targeting : BaseBehaviour {
 	Color[] playerColors = new Color[] {
 		Color.magenta,
 		Color.cyan,
-		Color.yellow,
-		Color.green
+		Color.green,
+		Color.yellow
 	};
 
 	int playerId;

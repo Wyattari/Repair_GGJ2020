@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Audio/Axon/Build/Desktop/Master.strings.bank
   SubDir: 
-  lastModified: 637162342450000000
+  lastModified: 637162446290000000
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -119,7 +119,7 @@ MonoBehaviour:
   Path: event:/Fire
   guid: 4353cd0da3c5b741bd20823ba06a537e
   Banks:
-  - {fileID: 3379500980664713336}
+  - {fileID: 5583359246101335534}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -6020056729481290947}
-  - {fileID: 3379500980664713336}
+  - {fileID: 5583359246101335534}
   EditorEvents:
   - {fileID: -2494966997156184657}
   - {fileID: 1269752001525202330}
@@ -190,10 +190,10 @@ MonoBehaviour:
   - {fileID: 6519145541122448469}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 3379500980664713336}
+  - {fileID: 5583359246101335534}
   StringsBanks:
   - {fileID: -6020056729481290947}
-  stringsBankWriteTime: 637162342450000000
+  stringsBankWriteTime: 637162446290000000
   cacheVersion: 3
 --- !u!114 &296740768174195785
 MonoBehaviour:
@@ -228,7 +228,7 @@ MonoBehaviour:
   Path: event:/Land
   guid: 8d57e8c7c6606e499af4977cdbc5fa57
   Banks:
-  - {fileID: 3379500980664713336}
+  - {fileID: 5583359246101335534}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -312,7 +312,7 @@ MonoBehaviour:
   Path: event:/Hit
   guid: 7cb89fa928c462408230af62f5111112
   Banks:
-  - {fileID: 3379500980664713336}
+  - {fileID: 5583359246101335534}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -361,6 +361,24 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 500
+--- !u!114 &2541951288497388641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Audio/Axon/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637162445670000000
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &3379500980664713336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +396,7 @@ MonoBehaviour:
   lastModified: 637162342450000000
   LoadResult: 0
   FileSizes: []
-  Exists: 1
+  Exists: 0
 --- !u!114 &3932814962934384129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +415,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &5583359246101335534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Audio/Axon/Build/Desktop/Master.bank
+  SubDir: 
+  lastModified: 637162446290000000
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &6519145541122448469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,7 +448,7 @@ MonoBehaviour:
   Path: event:/Jump
   guid: a38a85cbc238594c9c56823d27484735
   Banks:
-  - {fileID: 3379500980664713336}
+  - {fileID: 5583359246101335534}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
