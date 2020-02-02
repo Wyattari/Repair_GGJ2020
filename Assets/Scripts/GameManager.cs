@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] PlayableDirector Segment1Cam;
 	[SerializeField] PlayableDirector Segment2Cam;
 	[SerializeField] PlayableDirector Segment3Cam;
-	[SerializeField] GameObject[] CompleteCams;
+	[SerializeField] GameObject WideCam;
+	[SerializeField] GameObject WinCanvas;
 	[SerializeField] GameObject[] Segment0Objects;
 	[SerializeField] GameObject[] Segment1Objects;
 	[SerializeField] GameObject[] Segment2Objects;
@@ -94,14 +95,23 @@ public class GameManager : MonoBehaviour {
 		if(State.Segment <= 3) {
 			StartCoroutine(CompleteCam());
 		} else {
-			//you win
+			StartCoroutine(YouWin());
 		}
+	}
+	IEnumerator YouWin() {
+		WideCam.SetActive(true);
+		WinCanvas.SetActive(true);
+		yield return new WaitForSeconds(completionWaitTime*2);
+		WideCam.SetActive(false);
+		WinCanvas.SetActive(true);
+		State.Segment = 0;
+		StartCoroutine(Reset());
 	}
 
 	IEnumerator CompleteCam() {
-		CompleteCams[State.Segment-1].SetActive(true);
+		WideCam.SetActive(true);
 		yield return new WaitForSeconds(completionWaitTime);
-		CompleteCams[State.Segment - 1].SetActive(false);
+		WideCam.SetActive(false);
 		State.Segment++;
 		StartCoroutine(Reset());
 	}
