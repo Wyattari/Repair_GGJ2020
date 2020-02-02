@@ -345,4 +345,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reticle: {fileID: 1937685752}
   screenCanvas: {fileID: 1718282188}
-  sensitivity: 4
+  sensitivity: 48
