@@ -34,7 +34,6 @@ public class BeamEffect : MonoBehaviour
     void Start()
     {
         bSpline = new BSpline();
-        ShootBeam(startPosition, endPosition);
     }
 
     public void ShootBeam(Vector3 _StartPosition, Vector3 _EndPosition)
