@@ -304,8 +304,8 @@ MonoBehaviour:
   maxAirAcceleration: 15
   jumpHeight: 6
   maxAirJumps: 0
-  maxGroundAngle: 50
-  maxStairsAngle: 80
+  maxGroundAngle: 90
+  maxStairsAngle: 90
   maxSnapSpeed: 100
   probeDistance: 1
   probeMask:
