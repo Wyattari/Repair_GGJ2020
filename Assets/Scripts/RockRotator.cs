@@ -112,6 +112,7 @@ public class RockRotator : MonoBehaviour
             introTime += Time.deltaTime;
             speed = Mathf.Lerp(HoldSpeed, RotationSpeed, startCurve.Evaluate(introTime));
         }
+		if (CurrentAngle == null || CurrentAngle.Length < 1) { return; }
         CurrentAngle[0] += speed * Time.deltaTime;
         if (enableChildRotation)
         {
