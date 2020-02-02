@@ -26,7 +26,7 @@ public class BeamEffect : MonoBehaviour
     Vector3 Offset2;
     float OffsetAngle1;
     float OffsetAngle2;
-    bool isShooting = false;
+    bool stopShooting = false;
 
     Vector3[] points;
     List<Vector3> bPoints;
@@ -34,13 +34,14 @@ public class BeamEffect : MonoBehaviour
     void Start()
     {
         bSpline = new BSpline();
-        // ShootBeam(startPosition,endPosition);
+        ShootBeam(startPosition,endPosition);
     }
 
     public void ShootBeam(Vector3 _StartPosition, Vector3 _EndPosition)
     {
         startPosition = _StartPosition;
         endPosition = _EndPosition;
+        stopShooting = false;
 
 
         Offset1 = new Vector3(UnityEngine.Random.Range(min.x, max.x), UnityEngine.Random.Range(min.y, max.y), UnityEngine.Random.Range(min.z, max.z));
@@ -56,7 +57,7 @@ public class BeamEffect : MonoBehaviour
 
     public void StopBeam()
     {
-        isShooting = false;
+        stopShooting = true;
     }
 
     void getPoints()
@@ -99,7 +100,7 @@ public class BeamEffect : MonoBehaviour
             journey += Time.deltaTime;
             float startJourney = animationCurve.Evaluate(journey / duration);
 
-            if (isShooting)
+            if (stopShooting)
             {
                 endBeamTime += Time.deltaTime;
                 endJourney = animationCurve.Evaluate(endBeamTime / duration);
