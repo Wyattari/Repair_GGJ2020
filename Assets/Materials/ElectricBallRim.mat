@@ -109,11 +109,11 @@ Material:
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.3254902}
-    - _ColorTint: {r: 0, g: 0.27691868, b: 0.6037736, a: 0.6156863}
+    - _ColorTint: {r: 0, g: 0.31298077, b: 0.6039216, a: 0.6156863}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColorInner: {r: 0.5707547, g: 0.7862282, b: 1, a: 1}
-    - _RimColorOuter: {r: 0.29067284, g: 0.60307133, b: 0.8679245, a: 1}
+    - _RimColorInner: {r: 0.57254905, g: 0.7769604, b: 1, a: 1}
+    - _RimColorOuter: {r: 0.29019606, g: 0.50538325, b: 0.8666667, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
 --- !u!114 &5087601172151358642
