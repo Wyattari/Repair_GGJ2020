@@ -11,14 +11,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return _instance; } }
 
     [SerializeField] GameObject player;
-    [SerializeField] Transform[] playerSpawns;
     [SerializeField] PlayableDirector mainCamera;
 
     [NonSerialized] public GameEvents Events;
     [NonSerialized] public int PlayerCount = 0;
-
-    GameObject[] spawnedPlayers = new GameObject[4];
-
 
     private void Awake() {
         if (_instance != null && _instance != this) {
@@ -27,11 +23,7 @@ public class GameManager : MonoBehaviour
             _instance = this;
             Events = new GameEvents();
         }
-    }
-
-    void Start(){
         Subscribe();
-        StartCoroutine(Reset());
     }
 
 	void Subscribe() {
@@ -43,7 +35,12 @@ public class GameManager : MonoBehaviour
         Events.OnPlayerJoin -= Events_OnPlayerJoin;
     }
 
+    void Start(){
+        StartCoroutine(Reset());
+    }
+
 	void Events_OnPlayerJoin(int playerId) {
+        Debug.Log($"Resetting {playerId}");
         StartCoroutine(Reset());
 	}
 
@@ -57,17 +54,8 @@ public class GameManager : MonoBehaviour
         //wait for camera to get back to starting position
         yield return new WaitForSeconds(.5f);
 
-        foreach (GameObject player in spawnedPlayers) {
-            Destroy(player); 
-        }
+        Debug.Log($"RESPAWNING");
 
-        Respawn();
-    }
-
-	void Respawn() {
-        for (int i = 0; i < PlayerCount; i++) {
-            spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
-            spawnedPlayers[i].GetComponent<MovingSphere>().PlayerId = i;
-        }
+        Events.Respawn();
     }
 }
