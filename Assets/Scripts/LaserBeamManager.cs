@@ -6,15 +6,15 @@ public class LaserBeamManager : MonoBehaviour
 {
     public BeamEffect[] beams;
 
-    public void ShootBeams(Vector3 startPosition, Vector3 endPosition)
+    public void ShootBeams(Vector3 endPosition)
     {
         for(int i = 0 ; i < beams.Length; i++)
         {
-            beams[i].ShootBeam(startPosition, endPosition);
+            beams[i].ShootBeam(endPosition);
         }
     }
 
-    public void StopBeams(Vector3 startPosition, Vector3 endPosition)
+    public void StopBeams()
     {
         for(int i = 0 ; i < beams.Length; i++)
         {
@@ -22,11 +22,10 @@ public class LaserBeamManager : MonoBehaviour
         }
     }
 
-    public void SetPositions(Vector3 startPosition, Vector3 endPosition)
+    public void SetPositions(Vector3 endPosition)
     {
         for(int i = 0 ; i < beams.Length; i++)
         {
-            beams[i].startPosition = startPosition;
             beams[i].endPosition = endPosition;
         }
     }
