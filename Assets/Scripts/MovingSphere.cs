@@ -45,6 +45,10 @@ public class MovingSphere : MonoBehaviour {
 		Subscribe();
 	}
 
+	void OnDestroy() {
+		Destroy(PlayerRoot);
+	}
+
 	void Subscribe() {
 		Unsubscribe();
 		GameManager.Instance.Events.OnPlayerMove += Events_OnPlayerMove;
