@@ -2,6 +2,8 @@
 using UnityEngine;
 
 public class GameEvents {
+	public Action OnGameStart;
+
 	public Action OnRespawn;
 	public Action<int> OnPlayerJoin;
 
@@ -62,4 +64,7 @@ public class GameEvents {
 		OnHit?.Invoke(playerId, hitPoint);
 	}
 
+	public void GameStart() {
+		OnGameStart?.Invoke();
+	}
 }

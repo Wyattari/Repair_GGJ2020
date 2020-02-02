@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
 		Events.OnPlayerWin += Events_OnPlayerWin;
 		Events.OnRespawn += Events_OnRespawn;
 		Events.OnPlayerStart += Events_OnPlayerStart;
+		Events.OnPlayerJump += Events_OnPlayerJump;
 	}
 
 	void Unsubscribe() {
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour {
 		Events.OnPlayerWin -= Events_OnPlayerWin;
 		Events.OnRespawn -= Events_OnRespawn;
 		Events.OnPlayerStart -= Events_OnPlayerStart;
+		Events.OnPlayerJump -= Events_OnPlayerJump;
 	}
 
 	void Start() {
@@ -58,13 +60,20 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Events_OnPlayerStart(int playerId) {
-		if (State.Segment == 0) { State.Segment = 1; }
+		if (State.Segment == 0) { State.Segment = 1; Events.GameStart(); }
 		StartCoroutine(Reset());
+	}
+
+	void Events_OnPlayerJump(int playerId) {
+		if (State.Segment != 0) { return; }
+		State.Segment = 1;
+		StartCoroutine(Reset());
+		Events.GameStart();
 	}
 
 	private void Update() {
 		if (Input.GetKeyDown("`")) { State.Segment = 0; StartCoroutine(Reset()); }
-		if (Input.GetKeyDown("1")) { State.Segment = 1; StartCoroutine(Reset()); }
+		if (Input.GetKeyDown("1")) { State.Segment = 1; StartCoroutine(Reset()); Events.GameStart(); }
 		if (Input.GetKeyDown("2")) { State.Segment = 2; StartCoroutine(Reset()); }
 		if (Input.GetKeyDown("3")) { State.Segment = 3; StartCoroutine(Reset()); }
 	}

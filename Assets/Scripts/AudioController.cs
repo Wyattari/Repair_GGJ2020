@@ -48,6 +48,7 @@ public class AudioController : BaseBehaviour {
 		ambientNoise = RuntimeManager.CreateInstance(AmbientNoise);
 
 		ambientNoise.start();
+		menuMusic.start();
 	}
 
 	public void PlayJump() {
@@ -68,12 +69,14 @@ public class AudioController : BaseBehaviour {
 		events.OnPlayerFire += Events_OnPlayerFire;
 		events.OnPlayerDeath += Events_OnPlayerDeath;
 		events.OnRespawn += Events_OnRespawn;
+		events.OnGameStart += Events_OnGameStart;
 	}
 
 	void Unsubscribe() {
 		events.OnPlayerFire -= Events_OnPlayerFire;
 		events.OnPlayerDeath -= Events_OnPlayerDeath;
 		events.OnRespawn -= Events_OnRespawn;
+		events.OnGameStart -= Events_OnGameStart;
 	}
 
 	void Events_OnPlayerFire(int playerId) {
@@ -82,6 +85,12 @@ public class AudioController : BaseBehaviour {
 
 	void Events_OnPlayerDeath(int playerId) {
 		death.start();
+	}
+
+	void Events_OnGameStart() {
+		Debug.Log("GAMESTART");
+		menuMusic.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+		gameMusic.start();
 	}
 
 	void Events_OnRespawn() {
