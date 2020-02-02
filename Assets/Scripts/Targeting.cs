@@ -74,7 +74,7 @@ public class Targeting : MonoBehaviour {
 				    var rock_rotator = parent.GetComponent<RockRotator>();
 				    rock_rotator.HoldRocks();
 			    }
-                parent = hit.collider.transform.parent;
+                parent = parent.transform.parent;
             }
 		}
 	}
