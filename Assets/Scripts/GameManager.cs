@@ -62,10 +62,18 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown("3")) { State.Segment = 3; StartCoroutine(Reset()); }
 	}
 
+	Color[] playerColors = new Color[] {
+		Color.magenta,
+		Color.cyan,
+		Color.green,
+		Color.yellow
+	};
+
 	void Events_OnPlayerJoin(int playerId) {
 		State.Players.Add(new Player() {
 			Id = playerId,
 			IsAlive = false,
+			Color = playerColors[playerId],
 			GameObject = null
 		});
 		StartCoroutine(Reset());

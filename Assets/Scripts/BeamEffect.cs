@@ -26,7 +26,7 @@ public class BeamEffect : MonoBehaviour
     Vector3 Offset2;
     float OffsetAngle1;
     float OffsetAngle2;
-    bool isShooting = false;
+    bool stopShooting = false;
 
     Vector3[] points;
     List<Vector3> bPoints;
@@ -34,26 +34,30 @@ public class BeamEffect : MonoBehaviour
     void Start()
     {
         bSpline = new BSpline();
-        ShootBeam(startPosition, endPosition);
+        ShootBeam(startPosition,endPosition);
     }
 
     public void ShootBeam(Vector3 _StartPosition, Vector3 _EndPosition)
     {
         startPosition = _StartPosition;
         endPosition = _EndPosition;
+        stopShooting = false;
 
 
         Offset1 = new Vector3(UnityEngine.Random.Range(min.x, max.x), UnityEngine.Random.Range(min.y, max.y), UnityEngine.Random.Range(min.z, max.z));
         Offset2 = new Vector3(UnityEngine.Random.Range(min.x, max.x), UnityEngine.Random.Range(min.y, max.y), UnityEngine.Random.Range(min.z, max.z));
         InitOffset1= Offset1;
         InitOffset2= Offset2;
-
-        StartCoroutine(ShootOverTime());
+        
+        if(isActiveAndEnabled)
+        {
+            StartCoroutine(ShootOverTime());
+        }
     }
 
     public void StopBeam()
     {
-        isShooting = false;
+        stopShooting = true;
     }
 
     void getPoints()
@@ -69,8 +73,9 @@ public class BeamEffect : MonoBehaviour
     {
         OffsetAngle1+=beamSpinSpeed;
         OffsetAngle2+=beamSpinSpeed;
-        Offset1 = RotateAroundPoint(InitOffset1, Vector3.Lerp(startPosition, endPosition, 0.33f), Quaternion.Euler(0, 0, OffsetAngle1))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
-        Offset2 = RotateAroundPoint(InitOffset2, Vector3.Lerp(startPosition, endPosition, 0.67f), Quaternion.Euler(0, 0, OffsetAngle2))+new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z));;
+        Vector3 dir = (startPosition - endPosition).normalized;
+        Offset1 = RotateAroundPoint(InitOffset1,       Vector3.zero,            Quaternion.AngleAxis(OffsetAngle1, dir))/*      +new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z))*/;
+        Offset2 = RotateAroundPoint(InitOffset2,       Vector3.zero,            Quaternion.AngleAxis(OffsetAngle2, dir))/*      +new Vector3(UnityEngine.Random.Range(jitterMin.x, jitterMax.x), UnityEngine.Random.Range(jitterMin.y, jitterMax.y), UnityEngine.Random.Range(jitterMin.z, jitterMax.z))*/;
     }
 
     Vector3 RotateAroundPoint(Vector3 point, Vector3 pivot, Quaternion angle)
@@ -80,7 +85,6 @@ public class BeamEffect : MonoBehaviour
 
     public IEnumerator ShootOverTime()
     {
-        yield return new WaitForSeconds(1);
         float journey = 0;
 
         int startIndex = 0;
@@ -96,7 +100,7 @@ public class BeamEffect : MonoBehaviour
             journey += Time.deltaTime;
             float startJourney = animationCurve.Evaluate(journey / duration);
 
-            if (isShooting)
+            if (stopShooting)
             {
                 endBeamTime += Time.deltaTime;
                 endJourney = animationCurve.Evaluate(endBeamTime / duration);

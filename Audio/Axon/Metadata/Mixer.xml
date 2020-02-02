@@ -1,11 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.00.00">
-	<object class="Mixer" id="{9dfebe06-5ae1-447d-b753-0ff5a798b9c4}">
-		<relationship name="masterBus">
-			<destination>{a4671a81-05ff-47ba-a577-72eea38eb549}</destination>
-		</relationship>
-		<relationship name="snapshotList">
-			<destination>{c93acd17-8e3b-491a-96bb-dd97cf481183}</destination>
-		</relationship>
-	</object>
-</objects>
+version https://git-lfs.github.com/spec/v1
+oid sha256:6fc170368af4c40727925781f00968fe5403cc6e6b541cff1dade4b8d423c186
+size 421

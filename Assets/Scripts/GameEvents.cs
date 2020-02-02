@@ -9,10 +9,12 @@ public class GameEvents {
 	public Action<int, Vector2> OnPlayerMove;
 	public Action<int, Vector2> OnPlayerAim;
 	public Action<int> OnPlayerFire;
+	public Action<int> OnPlayerFireRelease;
 	public Action<int> OnPlayerJump;
 
+	// player events
+	public Action<int, Vector3> OnHit;
 	public Action<int> OnPlayerDeath;
-
 	public Action<int> OnPlayerWin;
 
 	public void Respawn() {
@@ -35,6 +37,10 @@ public class GameEvents {
 		OnPlayerFire?.Invoke(id);
 	}
 
+	public void PlayerFireRelease(int id) {
+		OnPlayerFireRelease?.Invoke(id);
+	}
+
 	public void PlayerJump(int id) {
 		OnPlayerJump?.Invoke(id);
 	}
@@ -45,6 +51,10 @@ public class GameEvents {
 
 	public void PlayerWin(int id) {
 		OnPlayerWin?.Invoke(id);
+	}
+
+	public void Hit(int playerId, Vector3 hitPoint) {
+		OnHit?.Invoke(playerId, hitPoint);
 	}
 
 }

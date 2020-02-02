@@ -14,6 +14,7 @@ namespace State {
 		public int Id;
 		public bool IsAlive;
 		public bool HasWon;
+		public Color Color;
 		public GameObject GameObject;
 	}
 }
