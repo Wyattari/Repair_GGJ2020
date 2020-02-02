@@ -8,12 +8,32 @@ public class RockRotator : MonoBehaviour
     public float HoldInterval = 1;
     public float HoldSpeed = 1;
 
-    float CurrentAngle = 0;
+    float[] CurrentAngle;
     float LastHold = 0;
+
+    [SerializeField] GameObject[] childrenRotate;
+    public bool enableChildRotation = true;
+    public Vector3[] childOffset;
+    [SerializeField] AnimationCurve startCurve;
+    Vector3[] childrenOrigins;
+    bool beginning;
+    float introTime = 0;
+
 
     void Start()
     {
-        LastHold = Time.time;
+
+        childrenOrigins = new Vector3[childrenRotate.Length];
+        CurrentAngle = new float[childrenRotate.Length];
+        LastHold = Time.time - HoldInterval;
+        for (int i = 0; i < childrenRotate.Length; i++) {
+            childrenOrigins[i] = childrenRotate[i].transform.localPosition;
+            CurrentAngle[i] = Random.Range(0, 180);
+        }
+
+        StartCoroutine(BeginRotation());
+
+
     }
 
     public void HoldRocks()
@@ -28,12 +48,37 @@ public class RockRotator : MonoBehaviour
         {
             speed = HoldSpeed;
         }
-        CurrentAngle += speed * Time.deltaTime;
-        transform.rotation = Quaternion.Euler(0, 0, CurrentAngle);
+        if (beginning) {
+            introTime += Time.deltaTime;
+            speed = Mathf.Lerp(HoldSpeed, RotationSpeed, startCurve.Evaluate(introTime));
+        }
+        CurrentAngle[0] += speed * Time.deltaTime;
+        if (enableChildRotation) {
+            for (int i = 0; i < childrenRotate.Length; i++) {
+                childrenRotate[i].transform.localRotation = Quaternion.Euler(0,0,CurrentAngle[i]);
+            }
+        }
+        transform.rotation = Quaternion.Euler(0, 0, CurrentAngle[0]);
     }
 
-    void OnShoot()
-    {
-        Debug.Log("Shoot");
+    public IEnumerator BeginRotation() {
+        float t = 0;
+
+        Debug.Log(startCurve.keys[1].time);
+        while (t <= startCurve.keys[1].time) {
+            beginning = true;
+            t += Time.deltaTime;
+            for (int i = 0; i < childrenRotate.Length; i++) {
+                childrenRotate[i].transform.localPosition = Vector3.Lerp(childrenOrigins[i], childrenOrigins[i] + childOffset[i], startCurve.Evaluate(t));
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        beginning = false;
     }
+
+
+    public IEnumerator Reassemble() {
+        yield return null;
+    }
+
 }
