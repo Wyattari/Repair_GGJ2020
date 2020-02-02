@@ -53,6 +53,9 @@ public class InputController : MonoBehaviour {
 			if (player.GetButtonDown("Jump")) {
 				events.PlayerJump(id);
 			}
+			if (player.GetButtonDown("Start")) {
+				events.PlayerStart(id);
+			}
 		}
 	}
 }

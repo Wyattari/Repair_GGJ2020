@@ -11,6 +11,7 @@ public class GameEvents {
 	public Action<int> OnPlayerFire;
 	public Action<int> OnPlayerFireRelease;
 	public Action<int> OnPlayerJump;
+	public Action<int> OnPlayerStart;
 
 	// player events
 	public Action<int, Vector3> OnHit;
@@ -39,6 +40,10 @@ public class GameEvents {
 
 	public void PlayerFireRelease(int id) {
 		OnPlayerFireRelease?.Invoke(id);
+	}
+
+	public void PlayerStart(int id) {
+		OnPlayerStart?.Invoke(id);
 	}
 
 	public void PlayerJump(int id) {

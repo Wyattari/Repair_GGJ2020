@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour {
 		Events.OnPlayerDeath += Events_OnPlayerDeath;
 		Events.OnPlayerWin += Events_OnPlayerWin;
 		Events.OnRespawn += Events_OnRespawn;
+		Events.OnPlayerStart += Events_OnPlayerStart;
 	}
 
 	void Unsubscribe() {
@@ -49,9 +50,15 @@ public class GameManager : MonoBehaviour {
 		Events.OnPlayerDeath -= Events_OnPlayerDeath;
 		Events.OnPlayerWin -= Events_OnPlayerWin;
 		Events.OnRespawn -= Events_OnRespawn;
+		Events.OnPlayerStart -= Events_OnPlayerStart;
 	}
 
 	void Start() {
+		StartCoroutine(Reset());
+	}
+
+	void Events_OnPlayerStart(int playerId) {
+		if (State.Segment == 0) { State.Segment = 1; }
 		StartCoroutine(Reset());
 	}
 
