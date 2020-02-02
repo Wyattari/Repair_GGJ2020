@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 1322807894808488941}
   - component: {fileID: -2037909934545380493}
   - component: {fileID: 1837876801503685204}
+  - component: {fileID: 4740870635002622164}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -346,3 +347,18 @@ MonoBehaviour:
   reticle: {fileID: 1937685752}
   screenCanvas: {fileID: 1718282188}
   sensitivity: 48
+--- !u!114 &4740870635002622164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322807894808488939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f840526a02afed45bebbb455440b48c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkPointLayer:
+    serializedVersion: 2
+    m_Bits: 1024
