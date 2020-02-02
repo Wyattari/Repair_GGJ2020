@@ -12,6 +12,7 @@ public class RockRotator : MonoBehaviour
     float LastHold = 0;
 
     [SerializeField] GameObject[] childrenRotate;
+    [SerializeField] GameObject[] childrenRotateOnly;
     public bool enableChildRotation = true;
     public Vector3[] childOffset;
     [SerializeField] AnimationCurve startCurve;
@@ -57,8 +58,11 @@ public class RockRotator : MonoBehaviour
             for (int i = 0; i < childrenRotate.Length; i++) {
                 childrenRotate[i].transform.localRotation = Quaternion.Euler(0,0,CurrentAngle[i]);
             }
+            for (int i = 0; i < childrenRotateOnly.Length; i++)
+            {
+                childrenRotateOnly[i].transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[i]);
+            }
         }
-        transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[0]);
     }
 
     public IEnumerator BeginRotation() {

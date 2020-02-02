@@ -30,7 +30,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -10, z: 0}
   m_LocalScale: {x: 10, y: 1.306, z: 10}
   m_Children: []
-  m_Father: {fileID: 5362767492954483802}
+  m_Father: {fileID: 6275160650425759491}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5362767492692618505
@@ -118,12 +118,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5362767492954483796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.3, z: 28.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5362767492692618510}
-  - {fileID: 5362767493081515674}
-  - {fileID: 5362767493871827954}
+  - {fileID: 6275160650425759491}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -146,6 +144,8 @@ MonoBehaviour:
   - {fileID: 5362767492692618506}
   - {fileID: 5362767493081515669}
   - {fileID: 5362767493871827469}
+  childrenRotateOnly:
+  - {fileID: 6688011625146941764}
   enableChildRotation: 1
   childOffset:
   - {x: 0, y: 0, z: 0}
@@ -212,9 +212,9 @@ Transform:
   m_GameObject: {fileID: 5362767493081515669}
   m_LocalRotation: {x: -0, y: -0, z: 0.84634924, w: 0.5326284}
   m_LocalPosition: {x: 11.3, y: 1.8, z: 0}
-  m_LocalScale: {x: 10, y: 1.306, z: 10}
+  m_LocalScale: {x: 10, y: 1.3059999, z: 10}
   m_Children: []
-  m_Father: {fileID: 5362767492954483802}
+  m_Father: {fileID: 6275160650425759491}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 115.634}
 --- !u!33 &5362767493081515673
@@ -307,7 +307,7 @@ Transform:
   m_LocalPosition: {x: -6.31, y: 4.49, z: 0}
   m_LocalScale: {x: 10, y: 1.306, z: 10}
   m_Children: []
-  m_Father: {fileID: 5362767492954483802}
+  m_Father: {fileID: 6275160650425759491}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 221.114}
 --- !u!33 &5362767493871827953
@@ -370,3 +370,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6688011625146941764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6275160650425759491}
+  m_Layer: 0
+  m_Name: TopRotator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6275160650425759491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688011625146941764}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5362767492692618510}
+  - {fileID: 5362767493081515674}
+  - {fileID: 5362767493871827954}
+  m_Father: {fileID: 5362767492954483802}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
