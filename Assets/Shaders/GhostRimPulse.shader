@@ -52,8 +52,11 @@
          
           half rimOuter = 1.0 -saturate(dot(normalize(IN.viewDir), o.Normal));
           half rimInner = saturate(dot(normalize(IN.viewDir), o.Normal));
-          o.Emission = (_RimColorOuter.rgb * pow(rimOuter, _RimPowerOuter)) + (_RimColorInner.rgb * pow(rimInner, _RimPowerInner)) ;
-          o.Emission += _PulseTint * (0.5 - 0.5*cos(6.28*saturate(10 * frac(1e-1*(IN.worldPos.z + 5e-1 * noise(sin(_Time.z)*IN.worldPos.x + _Time.x)) - _Time.y))));
+          o.Emission = (_RimColorOuter.rgb * pow(rimOuter, _RimPowerOuter)) + (_RimColorInner.rgb * pow(rimInner, _RimPowerInner));
+          float base_offset = 1e-1*(IN.worldPos.z + 5e-1 * noise(sin(_Time.z)*IN.worldPos.x + _Time.x)) - _Time.y;
+          float frac_value = frac(base_offset);
+          float integer_value = base_offset - frac_value;
+          o.Emission += _PulseTint * (0.5 - 0.5*cos(6.28*saturate((5 + 5 * noise(integer_value)) * frac_value)));
         }
         ENDCG
      } 
