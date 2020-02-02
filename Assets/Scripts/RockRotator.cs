@@ -11,6 +11,7 @@ public class RockRotator : MonoBehaviour
     public float FreezePulseRate = 0.5f;
 
     float[] CurrentAngle;
+    float[] CurrentAngleRotateOnly;
     float LastHold = 0;
 
     [SerializeField] GameObject[] childrenRotate;
@@ -23,7 +24,7 @@ public class RockRotator : MonoBehaviour
     public Color FreezeColor = Color.blue;
     public Color WarningColor = Color.red;
     Vector3[] childrenOrigins;
-    bool beginning;
+    bool beginning, starting = false;
     float introTime = 0;
 
     Color GetMateriaColorTint(GameObject gobj)
@@ -42,28 +43,34 @@ public class RockRotator : MonoBehaviour
 
     void Start()
     {
+        int children_rotate_len = childrenRotate.Length;
+        int children_rotate_only_len = childrenRotateOnly.Length;
+        if(starting)
+            return;
+        starting = true;
 
-        childrenOrigins = new Vector3[childrenRotate.Length];
-        CurrentAngle = new float[childrenRotate.Length];
-        childrenRotateColor = childrenRotate.Length > 0 ? new Color[childrenRotate.Length] : null;
-        childrenRotateOnlyColor = childrenRotateOnly.Length > 0 ? new Color[childrenRotateOnly.Length] : null;
+        childrenOrigins = new Vector3[children_rotate_len];
+        CurrentAngle = new float[children_rotate_len];
+        CurrentAngleRotateOnly = new float[children_rotate_only_len];
+        childrenRotateColor = children_rotate_len > 0 ? new Color[children_rotate_len] : null;
+        childrenRotateOnlyColor = children_rotate_only_len > 0 ? new Color[children_rotate_only_len] : null;
 
         LastHold = Time.time - HoldInterval;
-        for (int i = 0; i < childrenRotate.Length; i++)
+        for (int i = 0; i < children_rotate_len; i++)
         {
             childrenOrigins[i] = childrenRotate[i].transform.localPosition;
             CurrentAngle[i] = Random.Range(0, 180);
             childrenRotateColor[i] = GetMateriaColorTint(childrenRotate[i]);
         }
 
-        for (int i = 0; i < childrenRotateOnly.Length; i++)
+        for (int i = 0; i < children_rotate_only_len; i++)
         {
             childrenRotateOnlyColor[i] = GetMateriaColorTint(childrenRotateOnly[i]);
         }
 
         StartCoroutine(BeginRotation());
 
-
+        starting = false;
     }
 
     public void HoldRocks()
@@ -112,11 +119,12 @@ public class RockRotator : MonoBehaviour
             introTime += Time.deltaTime;
             speed = Mathf.Lerp(HoldSpeed, RotationSpeed, startCurve.Evaluate(introTime));
         }
-        CurrentAngle[0] += speed * Time.deltaTime;
         if (enableChildRotation)
         {
             for (int i = 0; i < childrenRotate.Length; i++)
             {
+                CurrentAngle[i] += speed * Time.deltaTime;
+
                 var child = childrenRotate[i];
                 FreezeChild(child, childrenRotateColor[i], frozen);
                 child.transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[i]);
@@ -124,9 +132,11 @@ public class RockRotator : MonoBehaviour
             if (childrenRotateOnly != null) { 
                 for (int i = 0; i < childrenRotateOnly.Length; i++)
                 {
-                    var child = childrenRotate[i];
+                    CurrentAngleRotateOnly[i] += speed * Time.deltaTime;
+
+                    var child = childrenRotateOnly[i];
                     FreezeChild(child, childrenRotateOnlyColor[i], frozen);
-                    child.transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[i]);
+                    child.transform.localRotation = Quaternion.Euler(0, 0, CurrentAngleRotateOnly[i]);
                 }
             }
         }
