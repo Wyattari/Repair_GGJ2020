@@ -1224,7 +1224,7 @@ MonoBehaviour:
   enableChildRotation: 1
   childOffset:
   - {x: 15, y: 0, z: 0}
-  - {x: -10, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   startCurve:
     serializedVersion: 2
     m_Curve:

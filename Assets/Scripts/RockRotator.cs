@@ -8,7 +8,7 @@ public class RockRotator : MonoBehaviour
     public float HoldInterval = 1;
     public float HoldSpeed = 1;
 
-    float CurrentAngle = 0;
+    float[] CurrentAngle;
     float LastHold = 0;
 
     [SerializeField] GameObject[] childrenRotate;
@@ -24,9 +24,11 @@ public class RockRotator : MonoBehaviour
     {
 
         childrenOrigins = new Vector3[childrenRotate.Length];
+        CurrentAngle = new float[childrenRotate.Length];
         LastHold = Time.time - HoldInterval;
         for (int i = 0; i < childrenRotate.Length; i++) {
             childrenOrigins[i] = childrenRotate[i].transform.localPosition;
+            CurrentAngle[i] = Random.Range(0, 180);
         }
 
         StartCoroutine(BeginRotation());
@@ -50,13 +52,13 @@ public class RockRotator : MonoBehaviour
             introTime += Time.deltaTime;
             speed = Mathf.Lerp(HoldSpeed, RotationSpeed, startCurve.Evaluate(introTime));
         }
-        CurrentAngle += speed * Time.deltaTime;
+        CurrentAngle[0] += speed * Time.deltaTime;
         if (enableChildRotation) {
-            foreach(GameObject child in childrenRotate) {
-                child.transform.localRotation = Quaternion.Euler(0,0,CurrentAngle);
+            for (int i = 0; i < childrenRotate.Length; i++) {
+                childrenRotate[i].transform.localRotation = Quaternion.Euler(0,0,CurrentAngle[i]);
             }
         }
-        transform.rotation = Quaternion.Euler(0, 0, CurrentAngle);
+        transform.rotation = Quaternion.Euler(0, 0, CurrentAngle[0]);
     }
 
     public IEnumerator BeginRotation() {
