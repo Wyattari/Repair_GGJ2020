@@ -13,6 +13,8 @@ public class GameEvents {
 
 	public Action<int> OnPlayerDeath;
 
+	public Action<int> OnPlayerWin;
+
 	public void Respawn() {
 		OnRespawn?.Invoke();
 	}
@@ -40,4 +42,9 @@ public class GameEvents {
 	public void PlayerDeath(int id) {
 		OnPlayerDeath?.Invoke(id);
 	}
+
+	public void PlayerWin(int id) {
+		OnPlayerWin?.Invoke(id);
+	}
+
 }

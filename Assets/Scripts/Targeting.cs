@@ -68,13 +68,14 @@ public class Targeting : MonoBehaviour {
 		Debug.Log("Reticle: " + screen_pos);
 		if (collided) {
 			var parent = hit.collider.transform.parent;
-			if (parent && parent.GetComponent<RockRotator>()) {
-				var rock_rotator = parent.GetComponent<RockRotator>();
-				rock_rotator.HoldRocks();
-				Debug.Log("Hit");
-			} else {
-				Debug.Log("Miss");
-			}
+            while(parent)
+            {
+			    if (parent.GetComponent<RockRotator>()) {
+				    var rock_rotator = parent.GetComponent<RockRotator>();
+				    rock_rotator.HoldRocks();
+			    }
+                parent = parent.transform.parent;
+            }
 		}
 	}
 
