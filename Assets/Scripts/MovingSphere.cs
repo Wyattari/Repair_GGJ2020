@@ -32,7 +32,10 @@ public class MovingSphere : MonoBehaviour {
 
 	public int PlayerId;
 
-	void OnValidate () {
+    [SerializeField] AnimationCurve fallVelocity;
+    float fallTime;
+
+    void OnValidate () {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
 		minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
 	}
@@ -116,7 +119,14 @@ public class MovingSphere : MonoBehaviour {
 		else {
 			contactNormal = Vector3.up;
 		}
-	}
+
+        if (!OnGround && stepsSinceLastJump <= 60) {
+            if (body.velocity.y <= 0) {
+                fallTime += Time.fixedDeltaTime;
+                velocity += new Vector3(0, -Mathf.Lerp(0, 4, fallVelocity.Evaluate(fallTime)), 0);
+            }
+        }
+    }
 
 	bool SnapToGround () {
 		if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2) {
@@ -195,8 +205,8 @@ public class MovingSphere : MonoBehaviour {
 		else {
 			return;
 		}
-
-		isJumping = true;
+        fallTime = 0;
+        isJumping = true;
 		try {
 			AudioController.Instance.PlayJump();
 		} catch (NullReferenceException) {
