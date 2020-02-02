@@ -31,6 +31,7 @@ public class SpawnController : MonoBehaviour {
 		for (int i = 0; i < GameManager.Instance.PlayerCount; i++) {
 			spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
 			spawnedPlayers[i].GetComponent<MovingSphere>().PlayerId = i;
+			spawnedPlayers[i].GetComponent<Targeting>().PlayerId = i;
 		}
 	}
 

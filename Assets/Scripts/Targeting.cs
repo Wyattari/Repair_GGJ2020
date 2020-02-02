@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
+using UnityEngine.UI;
 
 public class Targeting : MonoBehaviour {
 	[SerializeField] RectTransform reticle;
@@ -13,7 +12,21 @@ public class Targeting : MonoBehaviour {
 	GameObject camera;
 	Camera mainCam;
 
-	[NonSerialized] public int PlayerId;
+	Color[] playerColors = new Color[] {
+		Color.magenta,
+		Color.cyan,
+		Color.yellow,
+		Color.green
+	};
+
+	int playerId;
+	public int PlayerId {
+		get { return playerId; }
+		set {
+			playerId = value;
+			reticle.GetComponent<Image>().color = playerColors[value];
+		}
+	}
 
 	private Vector2 look;
 
@@ -36,7 +49,7 @@ public class Targeting : MonoBehaviour {
 
 	void Events_OnPlayerAim(int playerId, Vector2 vector) {
 		if (playerId != PlayerId) { return; }
-		look = vector;		
+		look = vector;	
 	}
 
 	void Events_OnPlayerFire(int playerId) {

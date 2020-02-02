@@ -54,8 +54,6 @@ public class GameManager : MonoBehaviour
         //wait for camera to get back to starting position
         yield return new WaitForSeconds(.5f);
 
-        Debug.Log($"RESPAWNING");
-
         Events.Respawn();
     }
 }
