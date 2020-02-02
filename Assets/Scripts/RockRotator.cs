@@ -62,9 +62,11 @@ public class RockRotator : MonoBehaviour
             {
                 childrenRotate[i].transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[i]);
             }
-            for (int i = 0; i < childrenRotateOnly.Length; i++)
-            {
-                childrenRotateOnly[i].transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[i]);
+            if (childrenRotateOnly != null) { 
+                for (int i = 0; i < childrenRotateOnly.Length; i++)
+                {
+                    childrenRotateOnly[i].transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[i]);
+                }
             }
         }
     }

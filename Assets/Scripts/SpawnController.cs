@@ -9,7 +9,7 @@ public class SpawnController : MonoBehaviour {
 	[SerializeField] Transform[] playerSpawns;
 	[SerializeField] GameObject player;
 
-	void Start() {
+	void OnEnable() {
 		events = GameManager.Instance.Events;
 		Subscribe();
 	}
@@ -22,6 +22,11 @@ public class SpawnController : MonoBehaviour {
 	void Unsubscribe() {
 		events.OnRespawn -= Events_OnRespawn;
 	}
+
+	private void OnDisable() {
+		Unsubscribe();
+	}
+
 
 	void Events_OnRespawn() {
 		foreach (GameObject player in spawnedPlayers) {
