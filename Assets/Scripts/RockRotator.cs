@@ -24,7 +24,7 @@ public class RockRotator : MonoBehaviour
         LastHold = Time.time;
 
         for (int i = 0; i < childrenRotate.Length; i++) {
-            childrenOrigins[i] = childrenRotate[i].transform.position;
+            childrenOrigins[i] = childrenRotate[i].transform.localPosition;
         }
 
         StartCoroutine(BeginRotation());
@@ -47,7 +47,7 @@ public class RockRotator : MonoBehaviour
         CurrentAngle += speed * Time.deltaTime;
         if (enableChildRotation) {
             foreach(GameObject child in childrenRotate) {
-                child.transform.rotation = Quaternion.Euler(0,0,CurrentAngle);
+                child.transform.localRotation = Quaternion.Euler(0,0,CurrentAngle);
             }
         }
         transform.rotation = Quaternion.Euler(0, 0, CurrentAngle);
@@ -60,9 +60,9 @@ public class RockRotator : MonoBehaviour
         while (t <= startCurve.keys[1].time) {
             t += Time.deltaTime;
             for (int i = 0; i < childrenRotate.Length; i++) {
-                childrenRotate[i].transform.position = Vector3.Lerp(childrenOrigins[i], childrenOrigins[i] + childOffset[i], startCurve.Evaluate(t));
+                childrenRotate[i].transform.localPosition = Vector3.Lerp(childrenOrigins[i], childrenOrigins[i] + childOffset[i], startCurve.Evaluate(t));
             }
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForEndOfFrame();
         }
     }
 
