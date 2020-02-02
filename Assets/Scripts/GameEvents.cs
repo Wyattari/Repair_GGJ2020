@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public class GameEvents {
+	public Action OnRespawn;
 	public Action<int> OnPlayerJoin;
 
 	// player control
@@ -10,8 +11,14 @@ public class GameEvents {
 	public Action<int> OnPlayerFire;
 	public Action<int> OnPlayerJump;
 
+	public Action<int> OnPlayerDeath;
+
+	public void Respawn() {
+		OnRespawn?.Invoke();
+	}
+
 	public void PlayerJoin(int id) {
-		OnPlayerJoin?.Invoke(id);
+		OnPlayerJoin.Invoke(id);
 	}
 
 	public void PlayerMove(int id, Vector2 vector) {
@@ -28,5 +35,9 @@ public class GameEvents {
 
 	public void PlayerJump(int id) {
 		OnPlayerJump?.Invoke(id);
+	}
+
+	public void PlayerDeath(int id) {
+		OnPlayerDeath?.Invoke(id);
 	}
 }

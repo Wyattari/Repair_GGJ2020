@@ -26,7 +26,6 @@ public class InputController : MonoBehaviour {
 				if (!wantsJoin) { continue; }
 				playerMap[player.id] = playerMap.Count;
 				events.PlayerJoin(playerMap[player.id]);
-				GameManager.Instance.PlayerCount++;
 			}
 
 			var id = playerMap[player.id];

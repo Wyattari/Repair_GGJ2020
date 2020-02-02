@@ -58,7 +58,7 @@ public class RockRotator : MonoBehaviour
                 childrenRotate[i].transform.localRotation = Quaternion.Euler(0,0,CurrentAngle[i]);
             }
         }
-        transform.rotation = Quaternion.Euler(0, 0, CurrentAngle[0]);
+        transform.localRotation = Quaternion.Euler(0, 0, CurrentAngle[0]);
     }
 
     public IEnumerator BeginRotation() {

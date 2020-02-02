@@ -1,82 +1,108 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
+using UnityEngine.UI;
 
-public class Targeting : MonoBehaviour
-{
-    [SerializeField] RectTransform reticle;
-    [SerializeField] RectTransform screenCanvas;
-    Vector2 startPosition;
-    [SerializeField] float sensitivity = 0.2f;
-    GameObject camera;
-    Camera mainCam;
+public class Targeting : MonoBehaviour {
+	[SerializeField] RectTransform reticle;
+	[SerializeField] RectTransform screenCanvas;
+	Vector2 startPosition;
+	[SerializeField] float sensitivity = 0.2f;
+	Camera mainCam;
 
-    private Vector2 m_Look;
+	Color[] playerColors = new Color[] {
+		Color.magenta,
+		Color.cyan,
+		Color.yellow,
+		Color.green
+	};
 
-    private void Start() {
-        camera = GameObject.Find("cm");
-        mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
-    }
+	int playerId;
+	public int PlayerId {
+		get { return playerId; }
+		set {
+			playerId = value;
+			reticle.GetComponent<Image>().color = playerColors[value];
+		}
+	}
 
-    void OnLook(InputValue value) {
-        m_Look = value.Get<Vector2>();
-    }
+	private Vector2 look;
 
-    void Update()
-    {
-        Look(m_Look);
-    }
+	private void Start() {
+		mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+		Subscribe();
+	}
 
-    void OnShoot()
-    {
-        var canv = screenCanvas.GetComponent<RectTransform>();
+	void OnDestroy() {
+		Unsubscribe();		
+	}
 
-        var screen_pos = reticle.localPosition - new Vector3(canv.rect.min.x, canv.rect.min.y, 0);
+	void Unsubscribe() {
+		GameManager.Instance.Events.OnPlayerAim -= Events_OnPlayerAim;
+		GameManager.Instance.Events.OnPlayerFire -= Events_OnPlayerFire;
+	}
 
-        var screen_ray = Camera.main.ScreenPointToRay(screen_pos);
+	void Subscribe() {
+		Unsubscribe();
+		GameManager.Instance.Events.OnPlayerAim += Events_OnPlayerAim;
+		GameManager.Instance.Events.OnPlayerFire += Events_OnPlayerFire;
+	}
 
-        RaycastHit hit;
-        bool collided = Physics.Raycast(screen_ray.origin, screen_ray.direction, out hit);
-        Debug.Log("Reticle: " + screen_pos);
-        if(collided)
-        {
-            var parent = hit.collider.transform.parent;
-            if(parent && parent.GetComponent<RockRotator>())
-            {
-                var rock_rotator = parent.GetComponent<RockRotator>();
-                rock_rotator.HoldRocks();
-                Debug.Log("Hit");
-            }
-            else
-            {
-                Debug.Log("Miss");
-            }
-        }
-    }
+	void Events_OnPlayerAim(int playerId, Vector2 vector) {
+		if (playerId != PlayerId) { return; }
+		look = vector;	
+	}
+
+	void Events_OnPlayerFire(int playerId) {
+		if (playerId != PlayerId) { return; }
+
+		var canv = screenCanvas.GetComponent<RectTransform>();
+
+		var screen_pos = reticle.localPosition - new Vector3(canv.rect.min.x, canv.rect.min.y, 0);
+
+		var screen_ray = Camera.main.ScreenPointToRay(screen_pos);
+
+		RaycastHit hit;
+		bool collided = Physics.Raycast(screen_ray.origin, screen_ray.direction, out hit);
+		Debug.Log("Reticle: " + screen_pos);
+		if (collided) {
+			var parent = hit.collider.transform.parent;
+			if (parent && parent.GetComponent<RockRotator>()) {
+				var rock_rotator = parent.GetComponent<RockRotator>();
+				rock_rotator.HoldRocks();
+				Debug.Log("Hit");
+			} else {
+				Debug.Log("Miss");
+			}
+		}
+	}
+
+	void Update() {
+		Look(look);
+	}
 
 
-    private void Look(Vector2 looking) {
-        Vector3 newPos = new Vector3(looking.x, looking.y, 0);
-        reticle.localPosition += newPos*sensitivity;
-        reticle.localPosition = KeepFullyOnScreen(reticle.localPosition);
-        // need to add https://docs.unity3d.com/ScriptReference/Camera.ViewportPointToRay.html --- but need to normalize the reticle position D:
+	private void Look(Vector2 looking) {
+		Vector3 newPos = new Vector3(looking.x, looking.y, 0);
+		reticle.localPosition += newPos * sensitivity;
+		reticle.localPosition = KeepFullyOnScreen(reticle.localPosition);
+		// need to add https://docs.unity3d.com/ScriptReference/Camera.ViewportPointToRay.html --- but need to normalize the reticle position D:
 
-    }
+	}
 
-    Vector3 KeepFullyOnScreen(Vector3 newPos) {
-        var ret = reticle.GetComponent<RectTransform>();
-        var canv = screenCanvas.GetComponent<RectTransform>();
+	Vector3 KeepFullyOnScreen(Vector3 newPos) {
+		var ret = reticle.GetComponent<RectTransform>();
+		var canv = screenCanvas.GetComponent<RectTransform>();
 
-        float minX = (screenCanvas.sizeDelta.x - reticle.sizeDelta.x) * -0.5f;
-        float maxX = (screenCanvas.sizeDelta.x - reticle.sizeDelta.x) * 0.5f;
-        float minY = (screenCanvas.sizeDelta.y - reticle.sizeDelta.y) * -0.5f;
-        float maxY = (screenCanvas.sizeDelta.y - reticle.sizeDelta.y) * 0.5f;
+		float minX = (screenCanvas.sizeDelta.x - reticle.sizeDelta.x) * -0.5f;
+		float maxX = (screenCanvas.sizeDelta.x - reticle.sizeDelta.x) * 0.5f;
+		float minY = (screenCanvas.sizeDelta.y - reticle.sizeDelta.y) * -0.5f;
+		float maxY = (screenCanvas.sizeDelta.y - reticle.sizeDelta.y) * 0.5f;
 
-        newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
-        newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
+		newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
+		newPos.y = Mathf.Clamp(newPos.y, minY, maxY);
 
-        return newPos;
-    }
+		return newPos;
+	}
 }
