@@ -38,6 +38,8 @@ public class InputController : MonoBehaviour {
 				var wantsJoin = player.GetButtonDown("Fire") || player.GetButtonDown("Jump");
 				if (!wantsJoin) { return; }
 				playerMap[player.id] = playerMap.Count;
+				events.PlayerJoin(playerMap[player.id]);
+				GameManager.Instance.PlayerCount++;
 			}
 
 			var id = playerMap[player.id];

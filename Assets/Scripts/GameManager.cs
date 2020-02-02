@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     GameObject[] spawnedPlayers = new GameObject[4];
 
+    public int PlayerCount = 1;
+
     private void Awake() {
         if (_instance != null && _instance != this) {
             Destroy(this.gameObject);
@@ -28,12 +30,22 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
-        for (int i = 0; i < playerSpawns.Length; i++) {
-            spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
-        }
-
-
+        Respawn();
+        Subscribe();
     }
+
+	void Subscribe() {
+        Unsubscribe();
+        Events.OnPlayerJoin += Events_OnPlayerJoin;
+	}
+
+	void Unsubscribe() {
+        Events.OnPlayerJoin -= Events_OnPlayerJoin;
+    }
+
+	void Events_OnPlayerJoin(int playerId) {
+        StartCoroutine(Reset());
+	}
 
     public IEnumerator Reset() {
         //play SFX? add some kind of explosion or smoke poof? death animation
@@ -49,11 +61,13 @@ public class GameManager : MonoBehaviour
             Destroy(player); 
         }
 
-        for (int i = 0; i < playerSpawns.Length; i++) {
-            spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
-        }
-        
-
+        Respawn();
     }
 
+	void Respawn() {
+        for (int i = 0; i < PlayerCount; i++) {
+            spawnedPlayers[i] = Instantiate(player, playerSpawns[i]);
+            spawnedPlayers[i].GetComponent<MovingSphere>().PlayerId = i;
+        }
+    }
 }

@@ -30,8 +30,7 @@ public class MovingSphere : MonoBehaviour {
 
 	private Vector2 playerInput;
 
-	static int playerIds;
-	int playerId;
+	public int PlayerId;
 
 	void OnValidate () {
 		minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -44,7 +43,6 @@ public class MovingSphere : MonoBehaviour {
 
         PlayerRoot = Instantiate(PrefabCharacter);
 		Subscribe();
-		playerId = playerIds++;
 	}
 
 	void Subscribe() {
@@ -59,13 +57,13 @@ public class MovingSphere : MonoBehaviour {
 	}
 
 	void Events_OnPlayerMove(int playerId, Vector2 move) {
-		if (playerId != this.playerId) { return; }
+		if (playerId != PlayerId) { return; }
 
 		playerInput = move;
 	}
 
 	void Events_OnPlayerJump(int playerId) {
-		if (playerId != this.playerId) { return; }
+		if (playerId != PlayerId) { return; }
 
 		desiredJump = true;
 	}
