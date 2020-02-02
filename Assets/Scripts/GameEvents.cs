@@ -12,6 +12,7 @@ public class GameEvents {
 	public Action<int> OnPlayerJump;
 
 	// player events
+	public Action<int, Vector3> OnHit;
 	public Action<int> OnPlayerDeath;
 	public Action<int> OnPlayerWin;
 
@@ -45,6 +46,10 @@ public class GameEvents {
 
 	public void PlayerWin(int id) {
 		OnPlayerWin?.Invoke(id);
+	}
+
+	public void Hit(int playerId, Vector3 hitPoint) {
+		OnHit?.Invoke(playerId, hitPoint);
 	}
 
 }

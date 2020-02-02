@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Targeting : MonoBehaviour {
+public class Targeting : BaseBehaviour {
 	[SerializeField] RectTransform reticle;
 	[SerializeField] RectTransform screenCanvas;
 	Vector2 startPosition;
@@ -35,7 +35,7 @@ public class Targeting : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		Unsubscribe();		
+		Unsubscribe();
 	}
 
 	void Unsubscribe() {
@@ -45,13 +45,13 @@ public class Targeting : MonoBehaviour {
 
 	void Subscribe() {
 		Unsubscribe();
-		GameManager.Instance.Events.OnPlayerAim += Events_OnPlayerAim;
-		GameManager.Instance.Events.OnPlayerFire += Events_OnPlayerFire;
+		events.OnPlayerAim += Events_OnPlayerAim;
+		events.OnPlayerFire += Events_OnPlayerFire;
 	}
 
 	void Events_OnPlayerAim(int playerId, Vector2 vector) {
 		if (playerId != PlayerId) { return; }
-		look = vector;	
+		look = vector;
 	}
 
 	void Events_OnPlayerFire(int playerId) {
@@ -69,15 +69,15 @@ public class Targeting : MonoBehaviour {
 
 		if (collided) {
 			var parent = hit.collider.transform.parent;
-            while(parent)
-            {
-			    if (parent.GetComponent<RockRotator>()) {
-				    var rock_rotator = parent.GetComponent<RockRotator>();
-				    rock_rotator.HoldRocks();
+			while (parent) {
+				if (parent.GetComponent<RockRotator>()) {
+					var rock_rotator = parent.GetComponent<RockRotator>();
+					rock_rotator.HoldRocks();
 					StartCoroutine(PlayHitSound());
-			    }
-                parent = parent.transform.parent;
-            }
+					events.Hit(playerId, hit.collider.transform.position);
+				}
+				parent = parent.transform.parent;
+			}
 		}
 	}
 
