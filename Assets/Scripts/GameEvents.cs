@@ -11,8 +11,8 @@ public class GameEvents {
 	public Action<int> OnPlayerFire;
 	public Action<int> OnPlayerJump;
 
+	// player events
 	public Action<int> OnPlayerDeath;
-
 	public Action<int> OnPlayerWin;
 
 	public void Respawn() {
