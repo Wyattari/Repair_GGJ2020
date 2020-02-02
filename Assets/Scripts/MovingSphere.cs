@@ -119,11 +119,10 @@ public class MovingSphere : MonoBehaviour {
 		else {
 			contactNormal = Vector3.up;
 		}
-
-        if (!OnGround && stepsSinceLastJump <= 60) {
+        if (!OnGround) {
             if (body.velocity.y <= 0) {
-                fallTime += Time.fixedDeltaTime;
-                velocity += new Vector3(0, -Mathf.Lerp(0, 4, fallVelocity.Evaluate(fallTime)), 0);
+                fallTime += Time.deltaTime;
+                velocity += new Vector3(0, -Mathf.Lerp(0, .5f, fallVelocity.Evaluate(fallTime*2)), 0);
             }
         }
     }
