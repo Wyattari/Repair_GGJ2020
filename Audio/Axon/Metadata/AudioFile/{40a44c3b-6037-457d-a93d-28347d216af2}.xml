@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{40a44c3b-6037-457d-a93d-28347d216af2}">
+		<property name="assetPath">
+			<value>Average_Boi_Land_Mono.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.20935416666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d45ddff9-5296-4586-aeb1-dfe50547825f}</destination>
+		</relationship>
+	</object>
+</objects>
