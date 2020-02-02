@@ -15,10 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayableDirector mainCamera;
 
     [NonSerialized] public GameEvents Events;
+    [NonSerialized] public int PlayerCount = 0;
 
     GameObject[] spawnedPlayers = new GameObject[4];
 
-    public int PlayerCount = 1;
 
     private void Awake() {
         if (_instance != null && _instance != this) {
