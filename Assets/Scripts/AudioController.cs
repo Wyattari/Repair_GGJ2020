@@ -52,7 +52,6 @@ public class AudioController : MonoBehaviour {
 	}
 
 	void Events_OnPlayerFire(int playerId) {
-		Debug.Log("PLAYING FIRE SOUND KAMAN");
 		fire.start();
 	}
 }
