@@ -13,7 +13,7 @@ public class RockRotator : MonoBehaviour
 
     void Start()
     {
-        LastHold = Time.time;
+        LastHold = Time.time - HoldInterval;
     }
 
     public void HoldRocks()
